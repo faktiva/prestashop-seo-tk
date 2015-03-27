@@ -1,4 +1,4 @@
-# PrestaShop_module-zzSEOtk
+# PrestaShop module "ZiZuu SEO ToolKit"
 
 [ABOUT](https://github.com/ZiZuu-store/PrestaShop_module-zzSEOtk)
 
