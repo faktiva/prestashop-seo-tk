@@ -37,7 +37,7 @@ class zzSEOtk extends Module
 		$this->displayName = $this->l('ZiZuu SEO ToolKit');
 		$this->description = $this->l('Handles a few basic SEO related improvements such as "hreflang" and "canonical".');
 	 
-		$this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
+		$this->confirmUninstall = $this->l('Are you sure you want to uninstall "ZiZuu SEO ToolKit"?');
 	}
 		
 	public function install()
@@ -55,14 +55,41 @@ class zzSEOtk extends Module
 		return parent::uninstall();
 	}		
 	
-	public function hookDisplayHeader()
+	public function hookHeader()
 	{
-		$this->context->smarty->assign(
-			array(
+		if (!$this->isCached('meta-hreflang.tpl', $this->getCacheId()))
+			$this->context->smarty->assign(array(
+					'link' => $this->context->link->getModuleLink($this->name, 'display')
+				));
+
+		return $this->_displayHreflang();
+	}
+
+	private function _displayHreflang()
+	{
+		if (!$this->isCached('meta-hreflang.tpl', $this->getCacheId()))
+		{
+			$this->context->smarty->assign(array(
+				'languages' => $array(
+					'it' => 'it_url',
+					'en' => 'en_url',
+					'it-it' => 'it-it_url',
+				)
+			));
+		}
+
+		return $this->display(__FILE__, 'meta-hreflang.tpl', $this->getCacheId());
+	}
+
+	private function _displayCanonical()
+	{
+		if (!$this->isCached('meta-canonical.tpl', $this->getCacheId()))
+		{
+			$this->context->smarty->assign(array(
 				'link' => $this->context->link->getModuleLink($this->name, 'display')
-			)
-		);
-		return $this->display(__FILE__, 'hreflang.tpl');
+			));
+		}
+
+		return $this->display(__FILE__, 'meta-canonica.tpl', $this->getCacheId());
 	}
 }
-
