@@ -70,7 +70,7 @@ class zzSEOtk extends Module
 		if (!$this->isCached('meta-hreflang.tpl', $this->getCacheId()))
 		{
 			$this->context->smarty->assign(array(
-				'languages' => $array(
+				'languages' => array(
 					'it' => 'it_url',
 					'en' => 'en_url',
 					'it-it' => 'it-it_url',
