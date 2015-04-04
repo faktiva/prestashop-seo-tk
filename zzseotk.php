@@ -57,12 +57,13 @@ class zzSEOtk extends Module
 	
 	public function hookHeader()
 	{
-		if (!$this->isCached('meta-hreflang.tpl', $this->getCacheId()))
-			$this->context->smarty->assign(array(
-					'link' => $this->context->link->getModuleLink($this->name, 'display')
-				));
-
 		return $this->_displayHreflang();
+	}
+
+	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
+	{
+		parent::_clearCache('meta-hreflang.tpl', $this->getCacheId());
+		parent::_clearCache('meta-canonical.tpl', $this->getCacheId());
 	}
 
 	private function _displayHreflang()
@@ -70,11 +71,8 @@ class zzSEOtk extends Module
 		if (!$this->isCached('meta-hreflang.tpl', $this->getCacheId()))
 		{
 			$this->context->smarty->assign(array(
-				'languages' => array(
-					'it' => 'it_url',
-					'en' => 'en_url',
-					'it-it' => 'it-it_url',
-				)
+				'languages' => Language::getLanguages(true, (int)Shop::getContextShopId()),
+				'controller' => null, //Dispatcher::getInstance()->getController(),
 			));
 		}
 
@@ -86,10 +84,10 @@ class zzSEOtk extends Module
 		if (!$this->isCached('meta-canonical.tpl', $this->getCacheId()))
 		{
 			$this->context->smarty->assign(array(
-				'link' => $this->context->link->getModuleLink($this->name, 'display')
+				'link' => 'XXX XXX' //$this->context->link->getModuleLink($this->name, 'display')
 			));
 		}
 
-		return $this->display(__FILE__, 'meta-canonica.tpl', $this->getCacheId());
+		return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId());
 	}
 }
