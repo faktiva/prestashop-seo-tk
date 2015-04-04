@@ -55,43 +55,64 @@ class zzSEOtk extends Module
 		return parent::uninstall();
 	}		
 	
+	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
+	{
+		parent::_clearCache('meta-hreflang.tpl', $this->getCacheId($cache_id));
+		parent::_clearCache('meta-canonical.tpl', $this->getCacheId($cache_id));
+	}
+
 	public function hookHeader()
 	{
+		$p = (int)Tools::getValue('p', 1);
+		$qs = ($p>1) ? '?p='.$p : '';
 		$out = '';
-		$out = $this->_displayHreflang().
-		   	$this->_displayCanonical()
+
+		$out = $this->_displayHreflang($qs).
+		   	$this->_displayCanonical($qs)
 			;
 		return $out;
 	}
 
-	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
-	{
-		parent::_clearCache('meta-hreflang.tpl', $this->getCacheId());
-		parent::_clearCache('meta-canonical.tpl', $this->getCacheId());
+	private function _displayHreflang($qs)
+	{	
+		//TODO handle cache
+		$this->context->smarty->assign(array(
+			'languages' => Language::getLanguages(true, (int)Shop::getContextShopId()),
+			'qs' => $qs,
+		));
+
+		return $this->display(__FILE__, 'meta-hreflang.tpl');
 	}
 
-	private function _displayHreflang()
+	private function _displayCanonical($qs)
 	{
-		if (!$this->isCached('meta-hreflang.tpl', $this->getCacheId()))
+		$controller = Dispatcher::getInstance()->getController();
+		if (!empty(Context::getContext()->controller->php_self))
+			$controller = Context::getContext()->controller->php_self;
+		$link = $this->context->link;
+
+		switch ($controller)
+		{
+		case 'product':
+		case 'cms':
+			$qs = '';
+		default:
+			if ($id=(int)Tools::getValue('id_'.$controller))
+			{
+				$getLinkFunc = 'get'.ucfirst($controller).'Link';
+				$canonical = call_user_func(array($link, $getLinkFunc), $id);
+			}
+			break;
+		}
+
+		$url = $canonical.$qs;
+		if (!$this->isCached('meta-canonical.tpl', $this->getCacheId($url)))
 		{
 			$this->context->smarty->assign(array(
-				'languages' => Language::getLanguages(true, (int)Shop::getContextShopId()),
-				'qs' => ($p=Tools::getValue('p')) ? '?p='.$p : '',
+				'canonical_url' => $url,
 			));
 		}
 
-		return $this->display(__FILE__, 'meta-hreflang.tpl', $this->getCacheId());
-	}
-
-	private function _displayCanonical()
-	{
-		if (!$this->isCached('meta-canonical.tpl', $this->getCacheId()))
-		{
-			$this->context->smarty->assign(array(
-				'nk' => 'XXX XXX'
-			));
-		}
-
-		return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId());
+		return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId($url));
 	}
 }
