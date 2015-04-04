@@ -1,3 +1,3 @@
 {foreach $languages as $l}
-	<link rel="alternate" hreflang="{$l.language_code}" href="{$link->getLanguageLink($l.id)}" />
+	<link rel="alternate" hreflang="{$l.language_code}" href="{$link->getLanguageLink($l.id)}{$qs}" />
 {/foreach}
