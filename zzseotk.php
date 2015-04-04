@@ -57,7 +57,11 @@ class zzSEOtk extends Module
 	
 	public function hookHeader()
 	{
-		return $this->_displayHreflang();
+		$out = '';
+		$out = $this->_displayHreflang().
+		   	$this->_displayCanonical()
+			;
+		return $out;
 	}
 
 	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
@@ -72,7 +76,7 @@ class zzSEOtk extends Module
 		{
 			$this->context->smarty->assign(array(
 				'languages' => Language::getLanguages(true, (int)Shop::getContextShopId()),
-				'controller' => null, //Dispatcher::getInstance()->getController(),
+				'qs' => ($p=Tools::getValue('p')) ? '?p='.$p : '',
 			));
 		}
 
@@ -84,7 +88,7 @@ class zzSEOtk extends Module
 		if (!$this->isCached('meta-canonical.tpl', $this->getCacheId()))
 		{
 			$this->context->smarty->assign(array(
-				'link' => 'XXX XXX' //$this->context->link->getModuleLink($this->name, 'display')
+				'nk' => 'XXX XXX'
 			));
 		}
 
