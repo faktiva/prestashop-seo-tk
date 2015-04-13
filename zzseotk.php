@@ -22,6 +22,8 @@ if (!defined('_PS_VERSION_'))
 	
 class zzSEOtk extends Module
 {
+	private $_controller;
+
 	public function __construct()
 	{
 		$this->name = 'zzseotk';
@@ -29,7 +31,7 @@ class zzSEOtk extends Module
 		$this->tab = 'seo';
 		$this->version = '0.1';
 		$this->need_instance = 0;
-		$this->ps_versions_compliancy = array('min' => '1.5', 'max' => _PS_VERSION_);
+		$this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
 		$this->bootstrap = true;
 
 		parent::__construct();
@@ -45,16 +47,12 @@ class zzSEOtk extends Module
 		if (Shop::isFeatureActive())
 			Shop::setContext(Shop::CONTEXT_ALL);
 
-		if (!parent::install() || ! $this->registerHook('header'))
-			return false;
-
-		$ok = Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
-			|| Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', true)
-			|| Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', 5) /* Let index only one "N" value among allowed (1, 2, 5). @see FrontController */
-			;
-
-		return $ok;
-
+		return parent::install() 
+			&& $this->registerHook('header')
+			&& Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
+			&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', true)
+			&& Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', 5) /* Let index only one "N" value among allowed (1, 2, 5). @see FrontController */
+		;
 	}
 	
 	public function uninstall()
@@ -63,7 +61,7 @@ class zzSEOtk extends Module
 			&& Configuration::deleteByName('ZZSEOTK_HREFLANG_ENABLED')
 			&& Configuration::deleteByName('ZZSEOTK_CANONICAL_ENABLED')
 			&& Configuration::deleteByName('ZZSEOTK_SEO_PAGINATION_FACTOR')
-			;
+		;
 	}		
 	
 	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
@@ -93,7 +91,7 @@ class zzSEOtk extends Module
 
 	public function renderForm()
 	{
-		$nb = max(1, (int)Configuration::get('PS_PRODUCTS_PER_PAGE'));
+		$nb = (int)Configuration::get('PS_PRODUCTS_PER_PAGE');
 
 		$fields_form = array(
 			'form' => array(
@@ -101,32 +99,8 @@ class zzSEOtk extends Module
 					'title' => $this->displayName,
 					'icon' => 'icon-cogs'
 				),
-				'description' => $this->l('Set SEO-related html "meta" tags to handle content duplication and language issues.'),
+				'description' => $this->l('Set SEO related "meta" tags into the head to handle content duplication and language issues.'),
 				'input' => array(
-					array(
-						'type' => 'select',
-						'label' => $this->l('Canonical pagination'),
-						'name' => 'seo_pagination_factor',
-						'desc' => $this->l('Select the value of items, "n", to be made "canonical".'),
-						'options' => array(
-							'query' => array(
-								array(
-									'id' => 1,
-									'name' => (1 * $nb) . ' ' . $this->l('per page'),
-								),
-								array(
-									'id' => 2,
-									'name' => (2 * $nb) . ' ' . $this->l('per page'),
-								),
-								array(
-									'id' => 5,
-									'name' => (5 * $nb) . ' ' . $this->l('per page'),
-								),
-							),
-							'id' => 'id',
-							'name' => 'name',
-						)
-					),
 					array(
 						'type' => 'switch',
 						'label' => $this->l('Enable "hreflang" meta tag'),
@@ -163,6 +137,30 @@ class zzSEOtk extends Module
 							)
 						),
 					),
+					array(
+						'type' => 'select',
+						'label' => $this->l('Canonical pagination'),
+						'name' => 'seo_pagination_factor',
+						'desc' => $this->l('Select the value of items, "n", to be made "canonical".'),
+						'options' => array(
+							'query' => array(
+								array(
+									'id' => 1,
+									'name' => (1 * $nb) . ' ' . $this->l('per page'),
+								),
+								array(
+									'id' => 2,
+									'name' => (2 * $nb) . ' ' . $this->l('per page'),
+								),
+								array(
+									'id' => 5,
+									'name' => (5 * $nb) . ' ' . $this->l('per page'),
+								),
+							),
+							'id' => 'id',
+							'name' => 'name',
+						)
+					),
 				),
 				'submit' => array(
 					'title' => $this->l('Save'),
@@ -181,98 +179,101 @@ class zzSEOtk extends Module
 
 	public function hookHeader()
 	{
-		$controller = Dispatcher::getInstance()->getController();
+		$this->_controller = Dispatcher::getInstance()->getController();
 		if (!empty(Context::getContext()->controller->php_self))
-			$controller = Context::getContext()->controller->php_self;
+			$this->_controller = Context::getContext()->controller->php_self;
 
-		$p = (int)Tools::getValue('p', 1);
-		$n = (int)Tools::getValue('n', $this->context->cookie->nb_item_per_page);
-
-		$nb = Configuration::get('ZZSEOTK_SEO_PAGINATION_FACTOR') * max(1, (int)Configuration::get('PS_PRODUCTS_PER_PAGE'));
-		$nobots = ($n!=$nb && $p>1);
-
-		$params = array(
-			'n' => $n,
-			'p' => $p,
-		);
-		if ($params['p']==1)
-			unset($params['p']);
-
-		$out = '';
-		$out .= $this->_displayHreflang($controller, $params);
-
-		if ($nobots)
-			$this->context->smarty->assign(array('nobots' => true));
-		else
-		{
-			$params['n'] = $nb;
-			$out .= $this->_displayCanonical($controller, $params);
-		}
+		$out = "\n"
+			. $this->_displayHreflang()
+			. $this->_displayCanonical();
 
 		return $out;
 	}
 
-	private function _displayHreflang($controller, $params)
+	private function _displayHreflang()
 	{
 		if (!Configuration::get('ZZSEOTK_HREFLANG_ENABLED'))
-			return '';
+			return;
 
-		$qs = http_build_query($params['p'], '', '&');
-		$this->context->smarty->assign(array(
-			'qs' => !empty($qs) ? $qs : ''
-		));
+		$smarty = $this->context->smarty;
+		if ('404'==$this->_controller)
+		{
+			$smarty->assign(array('nobots' => true));
+			return;
+		}
+
+		// horrible hack: Link::getLanguageLink() seems to return a QS only on some cases
+		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'] ;
+		$smarty->assign(array('qs' => $qs));
 
 		return $this->display(__FILE__, 'meta-hreflang.tpl');
 	}
 
-	private function _displayCanonical($controller, $params)
+	private function _displayCanonical()
 	{
 		if (!Configuration::get('ZZSEOTK_CANONICAL_ENABLED'))
-			return '';
+			return;
 
+		$controller = $this->_controller;
 		$link = $this->context->link;
-		$qs = '?'.http_build_query($params, '', '&');
+		$smarty = $this->context->smarty;
 
-		switch ($controller)
+		$nb = (int)Configuration::get('ZZSEOTK_SEO_PAGINATION_FACTOR') * max(1, (int)Configuration::get('PS_PRODUCTS_PER_PAGE'));
+
+		$p = (int)Tools::getValue('p', 1);
+		$n = (int)Tools::getValue('n', $this->context->cookie->nb_item_per_page);
+		
+		if ($n!=$nb && $p>1)
+			$smarty->assign(array('nobots' => true));
+		else
 		{
-		case 'product':
-		case 'cms':
-			$qs = '';
-		case 'category':
-		case 'supplier':
-		case 'manufacturer':
-			if ($id=(int)Tools::getValue('id_'.$controller))
+			$params['n'] = $nb;
+
+			$qs = '?'.http_build_query($params, '', '&');
+
+			switch ($controller)
 			{
-				$getLinkFunc = 'get'.ucfirst($controller).'Link';
-				$canonical = call_user_func(array($this->context->link, $getLinkFunc), $id);
+			case 'product':
+			case 'cms':
+				$qs = '';
+			case 'category':
+			case 'supplier':
+			case 'manufacturer':
+				if ($id=(int)Tools::getValue('id_'.$controller))
+				{
+					$getLinkFunc = 'get'.ucfirst($controller).'Link';
+					$canonical = call_user_func(array($link, $getLinkFunc), $id);
+				}
+				break;
+
+			case 'index':
+				$qs = '';
+			case 'search':
+			case 'prices-drop':
+				$canonical = $link->getPageLink($controller);
+				$query = array();
+				if ($tag = Tools::getValue('tag', ''))
+					$query['tag'] = $tag;
+				if ($sq = Tools::getValue('search_query', ''))
+					$query['search_query'] = $sq;
+				if (count($query)>0)
+					$qs .=  '?'.http_build_query($query, '' , '&');
+				break;
+
+			default:
+				//$canonical .= "TEST '$controller'";
+				break;
 			}
-			break;
-		case 'index':
-			$qs = '';
-		case 'search':
-		case 'prices-drop':
-			$canonical = $this->context->link->getPageLink($controller);
-			$query = array();
-			if ($tag = Tools::getValue('tag', ''))
-				$query['tag'] = $tag;
-			if ($sq = Tools::getValue('search_query', ''))
-				$query['search_query'] = $sq;
-			if (count($query)>0)
-				$qs .=  '&'.http_build_query($query, '' , '&');
-			break;
-		default:
-			$canonical .= "TEST '$controller'";
-			break;
-		}
 
-		if ($canonical)
-		{
-			$url = $canonical.$qs;
-			if (!$this->isCached('meta-canonical.tpl', $this->getCacheId($url)))
+			if ($canonical)
 			{
-				$this->context->smarty->assign(array(
-					'canonical_url' => $url,
-				));
+				$url = $canonical.$qs;
+				if (!$this->isCached('meta-canonical.tpl', $this->getCacheId($url)))
+				{
+					$smarty->assign(array(
+						'canonical_url' => $url,
+					));
+				}
 			}
 		}
 
