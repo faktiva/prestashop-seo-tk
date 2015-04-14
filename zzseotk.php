@@ -198,13 +198,17 @@ class zzSEOtk extends Module
 		$smarty = $this->context->smarty;
 		if ('404'==$this->_controller)
 		{
-			$smarty->assign(array('nobots' => true));
+			$smarty->assign(array('nobots'=>true));
 			return;
 		}
 
 		// horrible hack: Link::getLanguageLink() seems to return a QS only on some cases
 		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'] ;
-		$smarty->assign(array('qs' => $qs));
+
+		$smarty->assign(array(
+			'qs' => $qs,
+			'shop_languages' => Language::getLanguages(true, (int)$this->context->shop->id),
+		));
 
 		return $this->display(__FILE__, 'meta-hreflang.tpl');
 	}
