@@ -205,14 +205,17 @@ class zzSEOtk extends Module
 		// horrible hack: Link::getLanguageLink() seems to return a QS only on some cases
 		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
 
-		if (Shop::isFeatureActive())
+		Shop::setContext(Shop::CONTEXT_ALL);
+		foreach (Shop::getShops(true, null, true) as $shop_id)
 		{
-			Shop::setContext(Shop::CONTEXT_ALL);
-			foreach (Shop::getShops(true, null, true) as $shop_id)
-				$shop_languages[$shop_id] = Language::getLanguages(true, $shop_id);
+			$shop_context = $this->context->cloneContext();
+			$shop_context->shop = new Shop((int)$shop_id);
+			$shop_languages[$shop_id] = array(
+				'context' => $shop_context,
+				'languages' => Language::getLanguages(true, $shop_id),
+			);
 		}
-		else
-			$shop_languages[0] = Language::getLanguages(true);
+		unset($shop_context);
 
 		$smarty->assign(array(
 			'qs' => $qs,
