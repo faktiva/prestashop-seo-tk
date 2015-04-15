@@ -37,7 +37,7 @@ class zzSEOtk extends Module
 		parent::__construct();
 
 		$this->displayName = $this->l('ZiZuu SEO ToolKit');
-		$this->description = $this->l('Handles a few basic SEO related improvements such as "hreflang" and "canonical".');
+		$this->description = $this->l('Handles a few basic SEO related improvements such as \'hreflang\' and \'canonical\'.');
 
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall "ZiZuu SEO ToolKit"?');
 	}
@@ -72,22 +72,23 @@ class zzSEOtk extends Module
 
 	public function getContent()
 	{
-		$_html = '';
+		$_html = '<div id="'.$this->name.'_config_intro" class="alert alert-info">'
+			. '  <span class="module_name">'.$this->displayName.'</span>'
+			. '  <div class="module_description">'.$this->description.'</div>'
+			. '</div>';
 
-		if (Tools::isSubmit('submitAddconfiguration'))
+		if (Tools::isSubmit('submitOptionsconfiguration'))
 		{
-			$_updateSuccess = false;
+			if (Tools::getValue('ZZSEOTK_HREFLANG_ENABLED'))
+				Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)Tools::getValue('ZZSEOTK_HREFLANG_ENABLED'));
 
-			if (Tools::isSubmit('submitHreflang'))
-				$_updateSuccess = Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)(Tools::getValue('hreflang_enabled')));
+			if (Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'))
+				Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'));
 
-			if (Tools::isSubmit('submitCanonical'))
-				$_updateSuccess = Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', (int)(Tools::getValue('seo_pagination_factor')))
-					&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)(Tools::getValue('canonical_enabled')));
-
-			$_html .= ($_updateSuccess) ? $this->displayConfirmation($this->l('All values updated')) : $this->displayError($this->l('An error occurred updating values.'));
+			if (Tools::getValue('ZZSEOTK_SEO_PAGINATION_FACTOR'))
+				Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', (int)Tools::getValue('ZZSEOTK_SEO_PAGINATION_FACTOR'));
 		}
-
+	
 		$_html .= $this->renderForm();
 
 		return $_html;
@@ -97,100 +98,71 @@ class zzSEOtk extends Module
 	{
 		$nb = (int)Configuration::get('PS_PRODUCTS_PER_PAGE');
 
-		$forms[0]['form'] = array(
-			'legend' => array(
+		$this->fields_option = array(
+			'hreflang' => array(
 				'title' => $this->l('Internationalization'),
-				'icon' => 'icon-flag'
-			),
-			'input' => array(
-				array(
-					'type' => 'switch',
-					'label' => $this->l('Enable "hreflang" meta tag'),
-					'hint' => $this->l('Set "alternate / hreflang" meta tag into the head to handle the same content in different languages.'),
-					'name' => 'hreflang_enabled',
-					'is_bool' => true,
-					'values' => array(
-						array(
-							'id' => 'active_on',
-							'value' => 1,
-							'label' => $this->l('Enabled'),
-						),
-						array(
-							'id' => 'active_off',
-							'value' => 0,
-							'label' => $this->l('Disabled'),
-						)
+				'icon' => 'icon-flag',
+				'fields' => array(
+					'ZZSEOTK_HREFLANG_ENABLED' => array(
+						'title' => $this->l('Enable "hreflang" meta tag'),
+						'hint' => $this->l('Set "alternate / hreflang" meta tag into the head to handle the same content in different languages.'),
+						'validation' => 'isBool',
+						'cast' => 'boolval',
+						'type' => 'bool',
 					),
 				),
+				'submit' => array(
+					'title' => $this->l('Save'),
+				),
 			),
-			'submit' => array(
-				'title' => $this->l('Save'),
-				'name' => 'submitHreflang',
-			),
-		);
-
-		$forms[1]['form'] = array(
-			'legend' => array(
+			'canonical' => array(
 				'title' => $this->l('Canonical URL'),
-				'icon' => 'icon-link'
-			),
-			'input' => array(
-				array(
-					'type' => 'switch',
-					'label' => $this->l('Enable "canonical" meta tag'),
-					'name' => 'canonical_enabled',
-					'hint' => $this->l('Set "alternate / canonical" meta tag into the head to avoid content duplication issues in SEO.'),
-					'is_bool' => true,
-					'values' => array(
-						array(
-							'id' => 'active_on',
-							'value' => 1,
-							'label' => $this->l('Enabled'),
+				'icon' => 'icon-link',
+				'fields' => array(
+					'ZZSEOTK_CANONICAL_ENABLED' => array(
+						'title' => $this->l('Enable "canonical" meta tag'),
+						'hint' => $this->l('Set "alternate / canonical" meta tag into the head to avoid content duplication issues in SEO.'),
+						'validation' => 'isBool',
+						'cast' => 'boolval',
+						'type' => 'bool',
+					),
+					'ZZSEOTK_SEO_PAGINATION_FACTOR' => array(
+						'title' => $this->l('Canonical pagination'),
+						'hint' => $this->l('Select the value of items ("n") in pagination to be used as "canonical".'),
+						'validation' => 'isInt',
+						'cast' => 'intval',
+						'type' => 'select',
+						'list' => array(
+							array(
+								'value' => 1,
+								'name' => $this->l('n = ') . $nb,
+							),
+							array(
+								'value' => 2,
+								'name' => $this->l('n = ') . (2 * $nb),
+							),
+							array(
+								'value' => 5,
+								'name' => $this->l('n = ') . (5 * $nb),
+							),
 						),
-						array(
-							'id' => 'active_off',
-							'value' => 0,
-							'label' => $this->l('Disabled'),
-						)
+						'identifier' => 'value',
 					),
 				),
-				array(
-					'type' => 'select',
-					'label' => $this->l('Canonical pagination'),
-					'name' => 'seo_pagination_factor',
-					'hint' => $this->l('Select the value of items ("n") in pagination to be used as "canonical".'),
-					'options' => array(
-						'query' => array(
-							array(
-								'id' => 1,
-								'name' => (1 * $nb) . ' ' . $this->l('per page'),
-							),
-							array(
-								'id' => 2,
-								'name' => (2 * $nb) . ' ' . $this->l('per page'),
-							),
-							array(
-								'id' => 5,
-								'name' => (5 * $nb) . ' ' . $this->l('per page'),
-							),
-						),
-						'id' => 'id',
-						'name' => 'name',
-					)
+				'submit' => array(
+					'title' => $this->l('Save'),
 				),
-			),
-			'submit' => array(
-				'title' => $this->l('Save'),
-				'name' => 'submitCanonical',
 			),
 		);
 
-		$helper = new HelperForm();
-		$helper->fields_value['seo_pagination_factor'] = Configuration::get('ZZSEOTK_SEO_PAGINATION_FACTOR');
-		$helper->fields_value['hreflang_enabled'] = Configuration::get('ZZSEOTK_HREFLANG_ENABLED');
-		$helper->fields_value['canonical_enabled'] = Configuration::get('ZZSEOTK_CANONICAL_ENABLED');
+        $helper = new HelperOptions($this);
+        $helper->id = $this->id;
+		$helper->module = $this;
+        $helper->currentIndex = AdminController::$currentIndex.'&configure='.$this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+		$helper->title = $this->displayName;
 
-		return $helper->generateForm($forms);
+		return $helper->generateOptions($this->fields_option);
 	}
 
 	public function hookHeader()
