@@ -50,7 +50,7 @@ class zzSEOtk extends Module
 		return parent::install() 
 			&& $this->registerHook('header')
 			&& Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
-			&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', true)
+			&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', false)
 			&& Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', 5) /* Let index only one "N" value among allowed (1, 2, 5). @see FrontController */
 		;
 	}
@@ -205,8 +205,14 @@ class zzSEOtk extends Module
 		// horrible hack: Link::getLanguageLink() seems to return a QS only on some cases
 		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
 
-		foreach (Shop::getShops(true, null, true) as $shop_id)
-			$shop_languages[$shop_id] = Language::getLanguages(true, $shop_id);
+		if (Shop::isFeatureActive())
+		{
+			Shop::setContext(Shop::CONTEXT_ALL);
+			foreach (Shop::getShops(true, null, true) as $shop_id)
+				$shop_languages[$shop_id] = Language::getLanguages(true, $shop_id);
+		}
+		else
+			$shop_languages[0] = Language::getLanguages(true);
 
 		$smarty->assign(array(
 			'qs' => $qs,
