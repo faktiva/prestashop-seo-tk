@@ -209,7 +209,7 @@ class zzSEOtk extends Module
 		{
 			$shop_context = $this->context->cloneContext();
 			$shop_context->shop = new Shop((int)$shop_id);
-			$shop_languages[$shop_id] = array(
+			$shops_data[$shop_id] = array(
 				'context' => $shop_context,
 				'languages' => Language::getLanguages(true, $shop_id),
 			);
@@ -218,7 +218,7 @@ class zzSEOtk extends Module
 
 		$smarty->assign(array(
 			'qs' => $qs,
-			'shop_languages' => $shop_languages,
+			'shops_data' => $shops_data,
 		));
 
 		return $this->display(__FILE__, 'meta-hreflang.tpl');
