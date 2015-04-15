@@ -205,7 +205,6 @@ class zzSEOtk extends Module
 		// horrible hack: Link::getLanguageLink() seems to return a QS only on some cases
 		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
 
-		Shop::setContext(Shop::CONTEXT_ALL);
 		foreach (Shop::getShops(true, null, true) as $shop_id)
 		{
 			$shop_context = $this->context->cloneContext();
