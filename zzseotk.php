@@ -72,100 +72,116 @@ class zzSEOtk extends Module
 
 	public function getContent()
 	{
-		$this->_html = '';
+		$_html = '';
 
-		if (Tools::isSubmit('submit_'.$this->name))
+		if (Tools::isSubmit('submitAddconfiguration'))
 		{
-			if (Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', (int)(Tools::getValue('seo_pagination_factor')))
-				&& Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)(Tools::getValue('hreflang_enabled')))
-				&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)(Tools::getValue('canonical_enabled'))))
-				$this->_html .= $this->displayConfirmation($this->l('All values updated'));
-			else
-				$this->_html .= $this->displayError($this->l('An error occurred updating values.'));
+			$_updateSuccess = false;
+
+			if (Tools::isSubmit('submitHreflang'))
+				$_updateSuccess = Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)(Tools::getValue('hreflang_enabled')));
+
+			if (Tools::isSubmit('submitCanonical'))
+				$_updateSuccess = Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', (int)(Tools::getValue('seo_pagination_factor')))
+					&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)(Tools::getValue('canonical_enabled')));
+
+			$_html .= ($_updateSuccess) ? $this->displayConfirmation($this->l('All values updated')) : $this->displayError($this->l('An error occurred updating values.'));
 		}
 
-		$this->_html .= $this->renderForm();
+		$_html .= $this->renderForm();
 
-		return $this->_html;
+		return $_html;
 	}
 
 	public function renderForm()
 	{
 		$nb = (int)Configuration::get('PS_PRODUCTS_PER_PAGE');
 
-		$fields_form = array(
-			'form' => array(
-				'legend' => array(
-					'title' => $this->displayName,
-					'icon' => 'icon-cogs'
-				),
-				'description' => $this->l('Set SEO related "meta" tags into the head to handle content duplication and language issues.'),
-				'input' => array(
-					array(
-						'type' => 'switch',
-						'label' => $this->l('Enable "hreflang" meta tag'),
-						'name' => 'hreflang_enabled',
-						'is_bool' => true,
-						'values' => array(
-							array(
-								'id' => 'active_on',
-								'value' => 1,
-								'label' => $this->l('Enabled'),
-							),
-							array(
-								'id' => 'active_off',
-								'value' => 0,
-								'label' => $this->l('Disabled'),
-							)
+		$forms[0]['form'] = array(
+			'legend' => array(
+				'title' => $this->l('Internationalization'),
+				'icon' => 'icon-flag'
+			),
+			'input' => array(
+				array(
+					'type' => 'switch',
+					'label' => $this->l('Enable "hreflang" meta tag'),
+					'hint' => $this->l('Set "alternate / hreflang" meta tag into the head to handle the same content in different languages.'),
+					'name' => 'hreflang_enabled',
+					'is_bool' => true,
+					'values' => array(
+						array(
+							'id' => 'active_on',
+							'value' => 1,
+							'label' => $this->l('Enabled'),
 						),
-					),
-					array(
-						'type' => 'switch',
-						'label' => $this->l('Enable "canonical" meta tag'),
-						'name' => 'canonical_enabled',
-						'is_bool' => true,
-						'values' => array(
-							array(
-								'id' => 'active_on',
-								'value' => 1,
-								'label' => $this->l('Enabled'),
-							),
-							array(
-								'id' => 'active_off',
-								'value' => 0,
-								'label' => $this->l('Disabled'),
-							)
-						),
-					),
-					array(
-						'type' => 'select',
-						'label' => $this->l('Canonical pagination'),
-						'name' => 'seo_pagination_factor',
-						'desc' => $this->l('Select the value of items, "n", to be made "canonical".'),
-						'options' => array(
-							'query' => array(
-								array(
-									'id' => 1,
-									'name' => (1 * $nb) . ' ' . $this->l('per page'),
-								),
-								array(
-									'id' => 2,
-									'name' => (2 * $nb) . ' ' . $this->l('per page'),
-								),
-								array(
-									'id' => 5,
-									'name' => (5 * $nb) . ' ' . $this->l('per page'),
-								),
-							),
-							'id' => 'id',
-							'name' => 'name',
+						array(
+							'id' => 'active_off',
+							'value' => 0,
+							'label' => $this->l('Disabled'),
 						)
 					),
 				),
-				'submit' => array(
-					'title' => $this->l('Save'),
-					'name' => 'submit_'.$this->name,
-				)
+			),
+			'submit' => array(
+				'title' => $this->l('Save'),
+				'name' => 'submitHreflang',
+			),
+		);
+
+		$forms[1]['form'] = array(
+			'legend' => array(
+				'title' => $this->l('Canonical URL'),
+				'icon' => 'icon-link'
+			),
+			'input' => array(
+				array(
+					'type' => 'switch',
+					'label' => $this->l('Enable "canonical" meta tag'),
+					'name' => 'canonical_enabled',
+					'hint' => $this->l('Set "alternate / canonical" meta tag into the head to avoid content duplication issues in SEO.'),
+					'is_bool' => true,
+					'values' => array(
+						array(
+							'id' => 'active_on',
+							'value' => 1,
+							'label' => $this->l('Enabled'),
+						),
+						array(
+							'id' => 'active_off',
+							'value' => 0,
+							'label' => $this->l('Disabled'),
+						)
+					),
+				),
+				array(
+					'type' => 'select',
+					'label' => $this->l('Canonical pagination'),
+					'name' => 'seo_pagination_factor',
+					'hint' => $this->l('Select the value of items ("n") in pagination to be used as "canonical".'),
+					'options' => array(
+						'query' => array(
+							array(
+								'id' => 1,
+								'name' => (1 * $nb) . ' ' . $this->l('per page'),
+							),
+							array(
+								'id' => 2,
+								'name' => (2 * $nb) . ' ' . $this->l('per page'),
+							),
+							array(
+								'id' => 5,
+								'name' => (5 * $nb) . ' ' . $this->l('per page'),
+							),
+						),
+						'id' => 'id',
+						'name' => 'name',
+					)
+				),
+			),
+			'submit' => array(
+				'title' => $this->l('Save'),
+				'name' => 'submitCanonical',
 			),
 		);
 
@@ -174,7 +190,7 @@ class zzSEOtk extends Module
 		$helper->fields_value['hreflang_enabled'] = Configuration::get('ZZSEOTK_HREFLANG_ENABLED');
 		$helper->fields_value['canonical_enabled'] = Configuration::get('ZZSEOTK_CANONICAL_ENABLED');
 
-		return $helper->generateForm(array($fields_form));
+		return $helper->generateForm($forms);
 	}
 
 	public function hookHeader()
