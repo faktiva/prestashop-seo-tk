@@ -207,6 +207,8 @@ class zzSEOtk extends Module
 		$smarty->assign(array(
 			'qs' => $qs,
 			'shops_data' => $shops_data,
+			'default_lang' => (int)Configuration::get('PS_LANG_DEFAULT'),
+			'default_shop' => (int)Configuration::get('PS_SHOP_DEFAULT'),
 		));
 
 		return $this->display(__FILE__, 'meta-hreflang.tpl');
