@@ -196,6 +196,7 @@ class zzSEOtk extends Module
 		foreach (Shop::getShopsCollection(true) as $shop)
 		{
 			$shop_context = $this->context->cloneContext();
+			$shop->setUrl();
 			$shop_context->shop = $shop;
 			$shops_data[$shop->id] = array(
 				'context' => $shop_context,
