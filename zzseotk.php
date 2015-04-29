@@ -202,7 +202,6 @@ class zzSEOtk extends Module
 				'languages' => Language::getLanguages(true, $shop_id),
 			);
 		}
-		unset($shop_context);
 
 		$smarty->assign(array(
 			'qs' => $qs,
