@@ -1,8 +1,5 @@
-<link rel="XXX-default_lang" value="{$default_lang}" />
-<link rel="XXX-default_shop" value="{$default_shop}" />
 {foreach from=$shops_data item=shop_data key=shop_id}
-	<link rel="XXX-shop-id" value="{$shop_data.context->shop->id}" />
-	<link rel="XXX-shop-object" value="{$shop_data.context->shop|print_r|escape:'UTF-8'}" />
+	<meta property="XXX-shop-object" value="{$shop_data.context->shop|print_r|escape:'UTF-8'}" />
 	{foreach $shop_data.languages as $lang}
 		{assign 'url' $link->getLanguageLink($lang.id_lang, $shop_data.context)|regex_replace:'/\?.*$/':''}
 		{if $url}
