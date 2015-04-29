@@ -1,5 +1,7 @@
 {foreach from=$shops_data item=shop_data key=shop_id}
-	<meta property="XXX-shop-object" value="{$shop_data.context->shop|print_r|escape:'UTF-8'}" />
+{*
+ <meta property="XXX-shop-object" value="{$shop_data.context->shop|print_r|escape:'UTF-8'}" /> 
+*}
 	{foreach $shop_data.languages as $lang}
 		{assign 'url' $link->getLanguageLink($lang.id_lang, $shop_data.context)|regex_replace:'/\?.*$/':''}
 		{if $url}
