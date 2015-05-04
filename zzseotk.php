@@ -197,7 +197,7 @@ class zzSEOtk extends Module
 		{
 			$shop_context = $this->context->cloneContext();
 			$shop_context->shop = new Shop($shop_id);
-			$shops_data[$shop->id] = array(
+			$shops_data[$shop_id] = array(
 				'context' => $shop_context,
 				'languages' => Language::getLanguages(true, $shop_id),
 			);
