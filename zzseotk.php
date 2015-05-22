@@ -198,15 +198,15 @@ class zzSEOtk extends Module
 			$shop_context = $this->context->cloneContext();
 			$shop_context->shop = new Shop($shop_id);
 			$shops_data[$shop_id] = array(
-				'current_domain' => $this->context->shop->domain,
 				'context' => $shop_context,
 				'languages' => Language::getLanguages(true, $shop_id),
 			);
 		}
 
 		$smarty->assign(array(
-			'qs' => $qs,
 			'shops_data' => $shops_data,
+			'qs' => $qs,
+			'current_domain' => $this->context->shop->domain,
 			'default_lang' => (int)Configuration::get('PS_LANG_DEFAULT'),
 			'default_shop' => (int)Configuration::get('PS_SHOP_DEFAULT'),
 		));
