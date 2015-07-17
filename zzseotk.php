@@ -167,9 +167,10 @@ class zzseotk extends Module
             return;
         }
 
+		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).'?'.$_SERVER['QUERY_STRING'];
+				$url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).$qs;
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
@@ -272,7 +273,11 @@ class zzseotk extends Module
             default:
                 $canonical = $link->getPageLink($controller);
                 break;
-        }
+		}
+
+		if ('index' == $controller) {
+			$canonical = rtrim($canonical, '/');
+		}
         // retain pagination for controllers supportin it, remove p=1
         if (($p = Tools::getValue('p')) && $p>1 && in_array($controller, $paginating_controllers)) {
             $params['p'] = $p;
