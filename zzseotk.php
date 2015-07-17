@@ -51,7 +51,6 @@ class zzSEOtk extends Module
 			&& $this->registerHook('header')
 			&& Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
 			&& Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', false)
-			&& Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', 5) /* Let index only one "N" value among allowed (1, 2, 5). @see FrontController */
 		;
 	}
 	
@@ -60,7 +59,7 @@ class zzSEOtk extends Module
 		return parent::uninstall() 
 			&& Configuration::deleteByName('ZZSEOTK_HREFLANG_ENABLED')
 			&& Configuration::deleteByName('ZZSEOTK_CANONICAL_ENABLED')
-			&& Configuration::deleteByName('ZZSEOTK_SEO_PAGINATION_FACTOR')
+	//FIXME remove from old installs	&& Configuration::deleteByName('ZZSEOTK_SEO_PAGINATION_FACTOR')
 		;
 	}		
 	
@@ -84,9 +83,6 @@ class zzSEOtk extends Module
 
 			if (Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'))
 				Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'));
-
-			if (Tools::getValue('ZZSEOTK_SEO_PAGINATION_FACTOR'))
-				Configuration::updateValue('ZZSEOTK_SEO_PAGINATION_FACTOR', (int)Tools::getValue('ZZSEOTK_SEO_PAGINATION_FACTOR'));
 		}
 	
 		$_html .= $this->renderForm();
@@ -125,28 +121,6 @@ class zzSEOtk extends Module
 						'validation' => 'isBool',
 						'cast' => 'boolval',
 						'type' => 'bool',
-					),
-					'ZZSEOTK_SEO_PAGINATION_FACTOR' => array(
-						'title' => $this->l('Canonical pagination'),
-						'hint' => $this->l('Select the value of items ("n") in pagination to be used as "canonical".'),
-						'validation' => 'isInt',
-						'cast' => 'intval',
-						'type' => 'select',
-						'list' => array(
-							array(
-								'value' => 1,
-								'name' => $this->l('n = ') . $nb,
-							),
-							array(
-								'value' => 2,
-								'name' => $this->l('n = ') . (2 * $nb),
-							),
-							array(
-								'value' => 5,
-								'name' => $this->l('n = ') . (5 * $nb),
-							),
-						),
-						'identifier' => 'value',
 					),
 				),
 				'submit' => array(
@@ -219,70 +193,102 @@ class zzSEOtk extends Module
 		if (!Configuration::get('ZZSEOTK_CANONICAL_ENABLED'))
 			return;
 
-		$controller = $this->_controller;
-		$link = $this->context->link;
-		$smarty = $this->context->smarty;
 
-		$nb = (int)Configuration::get('ZZSEOTK_SEO_PAGINATION_FACTOR') * max(1, (int)Configuration::get('PS_PRODUCTS_PER_PAGE'));
+		$canonical = $this->_getCanonicalLink();
 
-		$p = (int)Tools::getValue('p', 1);
-		$n = (int)Tools::getValue('n', $this->context->cookie->nb_item_per_page);
-		
-		if ($n!=$nb && $p>1)
-			$smarty->assign(array('nobots' => true));
-		else
+		if (!$this->isCached('meta-canonical.tpl', $this->getCacheId($canonical)))
 		{
-			$params['n'] = $nb;
-
-			$qs = '?'.http_build_query($params, '', '&');
-
-			switch ($controller)
-			{
-			case 'product':
-			case 'cms':
-				$qs = '';
-			case 'category':
-			case 'supplier':
-			case 'manufacturer':
-				if ($id=(int)Tools::getValue('id_'.$controller))
-				{
-					$getLinkFunc = 'get'.ucfirst($controller).'Link';
-					$canonical = call_user_func(array($link, $getLinkFunc), $id);
-				}
-				break;
-
-			case 'index':
-				$qs = '';
-			case 'search':
-			case 'prices-drop':
-				$canonical = $link->getPageLink($controller);
-				$query = array();
-				if ($tag = Tools::getValue('tag', ''))
-					$query['tag'] = $tag;
-				if ($sq = Tools::getValue('search_query', ''))
-					$query['search_query'] = $sq;
-				if (count($query)>0)
-					$qs .=  '?'.http_build_query($query, '' , '&');
-				break;
-
-			default:
-				//$canonical .= "TEST '$controller'";
-				break;
-			}
-
-			if ($canonical)
-			{
-				$url = $canonical.$qs;
-				if (!$this->isCached('meta-canonical.tpl', $this->getCacheId($url)))
-				{
-					$smarty->assign(array(
-						'canonical_url' => $url,
-					));
-				}
-			}
+			$this->context->smarty->assign(array(
+				'canonical_url' => $canonical,
+			));
 		}
 
-		return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId($url));
+		return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId($canonical));
 	}
 
+	private function _getCanonicalLink($id_lang = null, $id_shop = null, $add_qs = true)
+	{
+		$paginating_controllers = array(
+			'best-sales',
+			'category',
+			'manufacturer',
+			'manufacturer-list',
+			'new-products',
+			'prices-drop',
+			'search',
+			'supplier',
+			'supplier-list',
+		);
+
+		$link = $this->context->link;
+		$controller = $this->_controller;
+		$id = (int)Tools::getValue('id_'.$controller);
+		$getLinkFunc = 'get'.ucfirst($controller).'Link';
+		$params = array();
+
+		if (!$link || !$controller)
+		{
+			return;
+		}
+
+		switch ($controller)
+		{
+			case 'product':
+				// getProductLink($product, $alias = null, $category = null, $ean13 = null, $id_lang = null, $id_shop = null, $ipa = 0, $force_routes = false, $relative_protocol = false)
+				$canonical = $link->getProductLink($id, null, null, null, $id_lang, $id_shop);
+				break;
+			case 'category':
+				// getCategoryLink($category, $alias = null, $id_lang = null, $selected_filters = null, $id_shop = null, $relative_protocol = false)
+				$canonical = $link->getCategoryLink($id, null, $id_lang, Tools::getValue('selected_filters', null), $id_shop);
+				break;
+			case 'cms':
+				// getCMSLink($cms, $alias = null, $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+				$canonical = $link->getCmsLink($id, null, null, $id_lang, $id_shop);
+				break;
+
+			case 'cms-category':
+				// getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+			case 'supplier':
+				// getSupplierLink($supplier, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+			case 'manufacturer':
+				// getManufacturerLink ($manufacturer, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+				$canonical = $link->{$getLinkFunc}($id);
+				break;
+
+			case 'search':
+				if ($tag = Tools::getValue('tag'))
+				{
+					$params['tag'] = $tag;
+				}
+				if ($sq = Tools::getValue('search_query'))
+				{
+					$params['search_query'] = $sq;
+				}
+			case 'products-comparison':
+				if ($ids_str = Tools::getValue('compare_product_list'))
+				{
+					// use an ordered products' list as canonical param 
+					$ids = explode('|', $ids_str);
+					sort($ids, SORT_NUMERIC);
+					$params['compare_product_list'] = implode('|', $ids);
+				}
+
+			default:
+				$canonical = $link->getPageLink($controller);
+				break;
+		}
+		// retain pagination for controllers supportin it, remove p=1
+		if (($p = Tools::getValue('p')) && $p>1 && in_array($controller, $paginating_controllers))
+		{
+			$params['p'] = $p;
+		}
+
+		if ($add_qs && count($params)>0)
+		{
+			$canonical .= '?'.http_build_query($params, '' , '&');
+		}
+		
+		return $canonical;
+	}
 }
+
