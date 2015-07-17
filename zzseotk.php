@@ -61,10 +61,10 @@ class zzseotk extends Module
         return parent::uninstall()
             && Configuration::deleteByName('ZZSEOTK_HREFLANG_ENABLED')
             && Configuration::deleteByName('ZZSEOTK_CANONICAL_ENABLED')
-    //FIXME remove from old installs	&& Configuration::deleteByName('ZZSEOTK_SEO_PAGINATION_FACTOR')
         ;
     }
-    
+
+    //FIXME	
     public function _clearCache($template, $cache_id = null, $compile_id = null)
     {
         parent::_clearCache('meta-hreflang.tpl', $this->getCacheId($cache_id));
@@ -73,10 +73,10 @@ class zzseotk extends Module
 
     public function getContent()
     {
-        $_html = '<div id="'.$this->name.'_config_intro" class="alert alert-info">'
-            . '  <span class="module_name">'.$this->displayName.'</span>'
-            . '  <div class="module_description">'.$this->description.'</div>'
-            . '</div>';
+        $_html = '<div id="'.$this->name.'_config_intro" class="alert alert-info">'.
+            '  <span class="module_name">'.$this->displayName.'</span>'.
+            '  <div class="module_description">'.$this->description.'</div>'.
+            '</div>';
 
         if (Tools::isSubmit('submitOptionsconfiguration')) {
             if (Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
