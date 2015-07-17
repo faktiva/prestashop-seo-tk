@@ -30,7 +30,7 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '0.1';
+        $this->version = '0.1.1';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
@@ -38,7 +38,7 @@ class zzseotk extends Module
         parent::__construct();
 
         $this->displayName = $this->l('ZiZuu SEO ToolKit');
-        $this->description = $this->l('Handles a few basic SEO related improvements such as \'hreflang\' and \'canonical\'.');
+        $this->description = $this->l('Handles a few SEO related improvements, such as \'hreflang\' and \'canonical\'.');
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall "ZiZuu SEO ToolKit"?');
     }
