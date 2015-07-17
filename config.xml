@@ -2,8 +2,8 @@
 <module>
 	<name>zzseotk</name>
 	<displayName><![CDATA[ZiZuu SEO ToolKit]]></displayName>
-	<version><![CDATA[0.1]]></version>
-	<description><![CDATA['Handles a few basic SEO related improvements such as "hereflang" and "canonical".]]></description>
+	<version><![CDATA[0.1.1]]></version>
+	<description><![CDATA['Handles a few SEO related improvements, such as "herflang" and "canonical".]]></description>
 	<author><![CDATA[ZiZuu Store]]></author>
 	<tab><![CDATA[seo]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall "ZiZuu SEO ToolKit"?]]></confirmUninstall>
