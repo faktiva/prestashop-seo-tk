@@ -95,8 +95,6 @@ class zzseotk extends Module
 
     public function renderForm()
     {
-        $nb = (int)Configuration::get('PS_PRODUCTS_PER_PAGE');
-
         $this->fields_option = array(
             'hreflang' => array(
                 'title' => $this->l('Internationalization'),
@@ -150,8 +148,9 @@ class zzseotk extends Module
         }
 
         $out = "\n"
-            . $this->_displayHreflang()
-            . $this->_displayCanonical();
+            .$this->_displayHreflang()
+            .$this->_displayCanonical()
+        ;
 
         return $out;
     }
@@ -168,22 +167,21 @@ class zzseotk extends Module
             return;
         }
 
-        // horrible hack: Link::getLanguageLink() seems to return a QS only on some cases
-        $qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
-
-        foreach (Shop::getShops(true, null, true) as $shop_id) {
-            $shop_context = $this->context->cloneContext();
-            $shop_context->shop = new Shop($shop_id);
-            $shops_data[$shop_id] = array(
-                'context' => $shop_context,
-                'languages' => Language::getLanguages(true, $shop_id),
-            );
+		foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
+			foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
+				$url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).'?'.$_SERVER['QUERY_STRING'];
+				$shops_data[$shop_id][] = array(
+					'url' => $url,
+					'language' => array(
+						'id' => $language['id_lang'], 
+						'code' => $language['language_code'],
+					),
+				);
+			}
         }
 
         $smarty->assign(array(
             'shops_data' => $shops_data,
-            'qs' => $qs,
-            'current_domain' => $this->context->shop->domain,
             'default_lang' => (int)Configuration::get('PS_LANG_DEFAULT'),
             'default_shop' => (int)Configuration::get('PS_SHOP_DEFAULT'),
         ));
