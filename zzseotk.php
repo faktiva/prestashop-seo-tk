@@ -167,17 +167,17 @@ class zzseotk extends Module
             return;
         }
 
-		foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
-			foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-				$url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).'?'.$_SERVER['QUERY_STRING'];
-				$shops_data[$shop_id][] = array(
-					'url' => $url,
-					'language' => array(
-						'id' => $language['id_lang'], 
-						'code' => $language['language_code'],
-					),
-				);
-			}
+        foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
+            foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
+                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).'?'.$_SERVER['QUERY_STRING'];
+                $shops_data[$shop_id][] = array(
+                    'url' => $url,
+                    'language' => array(
+                        'id' => $language['id_lang'],
+                        'code' => $language['language_code'],
+                    ),
+                );
+            }
         }
 
         $smarty->assign(array(
