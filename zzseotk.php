@@ -161,16 +161,26 @@ class zzseotk extends Module
             return;
         }
 
+        $shop = Context::getContext()->shop;
+        $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
+        $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
+        $requested_URL = $proto.$shop->domain.$uri;
+        if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
+            && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false)
+        ) {
+            return;
+        }
+
         $smarty = $this->context->smarty;
         if ('404'==$this->_controller) {
             $smarty->assign('nobots', true);
             return;
         }
 
-		$qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
+        $qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-				$url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).$qs;
+                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).$qs;
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
@@ -183,8 +193,8 @@ class zzseotk extends Module
 
         $smarty->assign(array(
             'shops_data' => $shops_data,
-            'default_lang' => (int)Configuration::get('PS_LANG_DEFAULT'),
-            'default_shop' => (int)Configuration::get('PS_SHOP_DEFAULT'),
+            'default_lang_id' => (int)Configuration::get('PS_LANG_DEFAULT'),
+            'default_shop_id' => (int)Configuration::get('PS_SHOP_DEFAULT'),
         ));
 
         return $this->display(__FILE__, 'meta-hreflang.tpl');
@@ -273,11 +283,11 @@ class zzseotk extends Module
             default:
                 $canonical = $link->getPageLink($controller);
                 break;
-		}
+        }
 
-		if ('index' == $controller) {
-			$canonical = rtrim($canonical, '/');
-		}
+        if ('index' == $controller) {
+            $canonical = rtrim($canonical, '/');
+        }
         // retain pagination for controllers supportin it, remove p=1
         if (($p = Tools::getValue('p')) && $p>1 && in_array($controller, $paginating_controllers)) {
             $params['p'] = $p;
