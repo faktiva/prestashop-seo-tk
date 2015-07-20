@@ -178,7 +178,8 @@ class zzseotk extends Module
             return;
         }
 
-        $qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.$_SERVER['QUERY_STRING'];
+        parse_str($_SERVER['QUERY_STRING'], $params);
+        $qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.http_build_query($params, '', '&');
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
                 $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).$qs;
@@ -281,8 +282,8 @@ class zzseotk extends Module
                     $params['compare_product_list'] = implode('|', $ids);
                 }
 
-			default:
-				// getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = fa    lse)
+            default:
+                // getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = fa    lse)
                 $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 break;
         }
