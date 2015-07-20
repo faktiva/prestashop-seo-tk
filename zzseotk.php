@@ -165,6 +165,7 @@ class zzseotk extends Module
         $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
         $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
         $requested_URL = $proto.$shop->domain.$uri;
+        //TODO PS1.6.1.0 $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false)
         ) {
@@ -280,8 +281,9 @@ class zzseotk extends Module
                     $params['compare_product_list'] = implode('|', $ids);
                 }
 
-            default:
-                $canonical = $link->getPageLink($controller);
+			default:
+				// getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = fa    lse)
+                $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 break;
         }
 
