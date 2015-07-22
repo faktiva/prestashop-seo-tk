@@ -231,9 +231,8 @@ class zzseotk extends Module
     private function _handleNobots()
     {
         if (Configuration::get('ZZSEOTK_NOBOTS_ENABLED')) {
-            $smarty = $this->context->smarty;
             if (in_array($this->_controller, $this->_nobots_controllers)) {
-                $smarty->assign('nobots', true);
+            	$this->context->smarty->assign('nobots', true);
                 return true;
             }
         }
@@ -272,7 +271,7 @@ class zzseotk extends Module
             }
         }
 
-        $smarty->assign(array(
+        $this->context->smarty->assign(array(
             'shops_data' => $shops_data,
             'default_lang_id' => (int)Configuration::get('PS_LANG_DEFAULT'),
             'default_shop_id' => (int)Configuration::get('PS_SHOP_DEFAULT'),
