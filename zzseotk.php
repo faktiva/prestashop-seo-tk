@@ -25,12 +25,58 @@ class zzseotk extends Module
 {
     private $_controller;
 
+    private $_paginating_controllers = array(
+        'best-sales',
+        'category',
+        'manufacturer',
+        'manufacturer-list',
+        'new-products',
+        'prices-drop',
+        'search',
+        'supplier',
+        'supplier-list',
+    );
+
+    private $_nobots_controllers = array(
+        '404',
+        'address',
+        'addresses',
+        'attachment',
+        'authentication',
+        'cart',
+        'discount',
+        'footer',
+        'get-file',
+        'guest-tracking',
+        'header',
+        'history',
+        'identity',
+        'images.inc',
+        'init',
+        'my-account',
+        'order',
+        'order-opc',
+        'order-slip',
+        'order-detail',
+        'order-follow',
+        'order-return',
+        'order-confirmation',
+        'pagination',
+        'password',
+        'pdf-invoice',
+        'pdf-order-return',
+        'pdf-order-slip',
+        'product-sort',
+        'search',
+        'statistics',
+    );
+
     public function __construct()
     {
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.0.0';
+        $this->version = '1.1.0';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.6.0.9', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
@@ -38,7 +84,7 @@ class zzseotk extends Module
         parent::__construct();
 
         $this->displayName = $this->l('ZiZuu SEO ToolKit');
-        $this->description = $this->l('Handles a few SEO related improvements, such as \'hreflang\' and \'canonical\'.');
+        $this->description = $this->l('Handles a few SEO related improvements, such as \'hreflang\', \'canonical\' and \'noindex\'.');
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall "ZiZuu SEO ToolKit"?');
     }
@@ -53,6 +99,7 @@ class zzseotk extends Module
             && $this->registerHook('header')
             && Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
             && Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', false)
+            && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', true)
         ;
     }
     
@@ -61,6 +108,7 @@ class zzseotk extends Module
         return parent::uninstall()
             && Configuration::deleteByName('ZZSEOTK_HREFLANG_ENABLED')
             && Configuration::deleteByName('ZZSEOTK_CANONICAL_ENABLED')
+            && Configuration::deleteByName('ZZSEOTK_NOBOTS_ENABLED')
         ;
     }
 
@@ -86,6 +134,10 @@ class zzseotk extends Module
             if (Tools::getValue('ZZSEOTK_CANONICAL_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'));
             }
+
+            if (Tools::getValue('ZZSEOTK_NOBOTS_ENABLED')) {
+                Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', (bool)Tools::getValue('ZZSEOTK_NOBOTS_ENABLED'));
+            }
         }
     
         $_html .= $this->renderForm();
@@ -102,7 +154,7 @@ class zzseotk extends Module
                 'fields' => array(
                     'ZZSEOTK_HREFLANG_ENABLED' => array(
                         'title' => $this->l('Enable "hreflang" meta tag'),
-                        'hint' => $this->l('Set "alternate / hreflang" meta tag into the head to handle the same content in different languages.'),
+                        'hint' => $this->l('Set "hreflang" meta tag into the html head to handle the same content in different languages.'),
                         'validation' => 'isBool',
                         'cast' => 'boolval',
                         'type' => 'bool',
@@ -118,7 +170,23 @@ class zzseotk extends Module
                 'fields' => array(
                     'ZZSEOTK_CANONICAL_ENABLED' => array(
                         'title' => $this->l('Enable "canonical" meta tag'),
-                        'hint' => $this->l('Set "alternate / canonical" meta tag into the head to avoid content duplication issues in SEO.'),
+                        'hint' => $this->l('Set "canonical"meta tag into the html head to avoid content duplication issues in SEO.'),
+                        'validation' => 'isBool',
+                        'cast' => 'boolval',
+                        'type' => 'bool',
+                    ),
+                ),
+                'submit' => array(
+                    'title' => $this->l('Save'),
+                ),
+            ),
+            'nobots' => array(
+                'title' => $this->l('noindex,nofollow'),
+                'icon' => 'icon-sitemap',
+                'fields' => array(
+                    'ZZSEOTK_NOBOTS_ENABLED' => array(
+                        'title' => $this->l('Enable "noindex,nofollow" meta tag'),
+                        'hint' => $this->l('Set "noindex,nofollow" meta tag into the html head to avoid search engine indicization of "private" pages. Public pages are not affected of course.'),
                         'validation' => 'isBool',
                         'cast' => 'boolval',
                         'type' => 'bool',
@@ -147,12 +215,29 @@ class zzseotk extends Module
             $this->_controller = Context::getContext()->controller->php_self;
         }
 
+        if ($this->_handleNobots()) {
+            // no need to add anything else as robots should ignore this page
+            return;
+        }
+
         $out = "\n"
             .$this->_displayHreflang()
             .$this->_displayCanonical()
         ;
 
         return $out;
+    }
+
+    private function _handleNobots()
+    {
+        if (Configuration::get('ZZSEOTK_NOBOTS_ENABLED')) {
+            $smarty = $this->context->smarty;
+            if (in_array($this->_controller, $this->_nobots_controllers)) {
+                $smarty->assign('nobots', true);
+                return true;
+            }
+        }
+        return false;
     }
 
     private function _displayHreflang()
@@ -169,12 +254,6 @@ class zzseotk extends Module
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false)
         ) {
-            return;
-        }
-
-        $smarty = $this->context->smarty;
-        if ('404'==$this->_controller) {
-            $smarty->assign('nobots', true);
             return;
         }
 
@@ -222,18 +301,6 @@ class zzseotk extends Module
 
     private function _getCanonicalLink($id_lang = null, $id_shop = null, $add_qs = true)
     {
-        $paginating_controllers = array(
-            'best-sales',
-            'category',
-            'manufacturer',
-            'manufacturer-list',
-            'new-products',
-            'prices-drop',
-            'search',
-            'supplier',
-            'supplier-list',
-        );
-
         $link = $this->context->link;
         $controller = $this->_controller;
         $id = (int)Tools::getValue('id_'.$controller);
@@ -292,7 +359,7 @@ class zzseotk extends Module
             $canonical = rtrim($canonical, '/');
         }
         // retain pagination for controllers supportin it, remove p=1
-        if (($p = Tools::getValue('p')) && $p>1 && in_array($controller, $paginating_controllers)) {
+        if (($p = Tools::getValue('p')) && $p>1 && in_array($controller, $this->_paginating_controllers)) {
             $params['p'] = $p;
         }
 
