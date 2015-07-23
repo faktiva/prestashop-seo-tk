@@ -232,7 +232,7 @@ class zzseotk extends Module
     {
         if (Configuration::get('ZZSEOTK_NOBOTS_ENABLED')) {
             if (in_array($this->_controller, $this->_nobots_controllers)) {
-            	$this->context->smarty->assign('nobots', true);
+                $this->context->smarty->assign('nobots', true);
                 return true;
             }
         }
