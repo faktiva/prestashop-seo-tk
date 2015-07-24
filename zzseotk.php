@@ -349,14 +349,12 @@ class zzseotk extends Module
                 }
 
             default:
-                if (isset($params['fc']) && $params['fc'] == 'module') {
-                    $module = Validate::isModuleName(Tools::getValue('module')) ? Tools::getValue('module') : '';
-                    if (!empty($module)) {
-                        unset($params['fc'], $params['module']);
-                        // getModuleLink($module, $controller = 'default', array $params = array(), $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-                        $canonical = $this->getModuleLink($module, $controller, $params, null, $id_lang, $id_shop);
-                        break;
-                    }
+                $module = Tools::getValue('module');
+                if (Validate::isModuleName($module)) {
+                    unset($params['fc'], $params['module']);
+                    // getModuleLink($module, $controller = 'default', array $params = array(), $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                    $canonical = $this->getModuleLink($module, $controller, $params, null, $id_lang, $id_shop);
+                    break;
                 }
                 // getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = fa    lse)
                 $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
