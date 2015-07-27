@@ -97,9 +97,9 @@ class zzseotk extends Module
 
         return parent::install()
             && $this->registerHook('header')
-            && Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
+            && Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', false)
             && Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', false)
-            && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', true)
+            && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', false)
         ;
     }
     
@@ -127,15 +127,15 @@ class zzseotk extends Module
             '</div>';
 
         if (Tools::isSubmit('submitOptionsconfiguration')) {
-            if (Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
+			if (null!==Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)Tools::getValue('ZZSEOTK_HREFLANG_ENABLED'));
             }
 
-            if (Tools::getValue('ZZSEOTK_CANONICAL_ENABLED')) {
+            if (null!==Tools::getValue('ZZSEOTK_CANONICAL_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'));
             }
 
-            if (Tools::getValue('ZZSEOTK_NOBOTS_ENABLED')) {
+            if (null!==Tools::getValue('ZZSEOTK_NOBOTS_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', (bool)Tools::getValue('ZZSEOTK_NOBOTS_ENABLED'));
             }
         }
@@ -351,9 +351,8 @@ class zzseotk extends Module
             default:
                 $module = Tools::getValue('module');
                 if (Validate::isModuleName($module)) {
-                    unset($params['fc'], $params['module']);
                     // getModuleLink($module, $controller = 'default', array $params = array(), $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-                    $canonical = $link->getModuleLink($module, $controller, $params, null, $id_lang, $id_shop);
+                    $canonical = $link->getModuleLink($module, $controller, $_GET, null, $id_lang, $id_shop);
                     break;
                 }
 
