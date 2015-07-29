@@ -127,7 +127,7 @@ class zzseotk extends Module
             '</div>';
 
         if (Tools::isSubmit('submitOptionsconfiguration')) {
-			if (null!==Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
+            if (null!==Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)Tools::getValue('ZZSEOTK_HREFLANG_ENABLED'));
             }
 
@@ -351,8 +351,10 @@ class zzseotk extends Module
             default:
                 $module = Tools::getValue('module');
                 if (Validate::isModuleName($module)) {
+                    $_params = $_GET;
+                    unset($_params['fc']);
                     // getModuleLink($module, $controller = 'default', array $params = array(), $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-                    $canonical = $link->getModuleLink($module, $controller, $_GET, null, $id_lang, $id_shop);
+                    $canonical = $link->getModuleLink($module, $controller, $_params, null, $id_lang, $id_shop);
                     break;
                 }
 
