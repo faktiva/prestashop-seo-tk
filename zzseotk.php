@@ -76,7 +76,7 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.1.1';
+        $this->version = '1.1.2';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.6.0.9', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
@@ -97,9 +97,9 @@ class zzseotk extends Module
 
         return parent::install()
             && $this->registerHook('header')
-            && Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', true)
+            && Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', false)
             && Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', false)
-            && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', true)
+            && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', false)
         ;
     }
     
@@ -127,15 +127,15 @@ class zzseotk extends Module
             '</div>';
 
         if (Tools::isSubmit('submitOptionsconfiguration')) {
-            if (Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
+            if (null!==Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)Tools::getValue('ZZSEOTK_HREFLANG_ENABLED'));
             }
 
-            if (Tools::getValue('ZZSEOTK_CANONICAL_ENABLED')) {
+            if (null!==Tools::getValue('ZZSEOTK_CANONICAL_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'));
             }
 
-            if (Tools::getValue('ZZSEOTK_NOBOTS_ENABLED')) {
+            if (null!==Tools::getValue('ZZSEOTK_NOBOTS_ENABLED')) {
                 Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', (bool)Tools::getValue('ZZSEOTK_NOBOTS_ENABLED'));
             }
         }
@@ -349,6 +349,15 @@ class zzseotk extends Module
                 }
 
             default:
+                $module = Tools::getValue('module');
+                if (Validate::isModuleName($module)) {
+                    $_params = $_GET;
+                    unset($_params['fc']);
+                    // getModuleLink($module, $controller = 'default', array $params = array(), $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                    $canonical = $link->getModuleLink($module, $controller, $_params, null, $id_lang, $id_shop);
+                    break;
+                }
+
                 // getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = fa    lse)
                 $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 break;

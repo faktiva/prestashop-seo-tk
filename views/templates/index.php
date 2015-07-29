@@ -14,7 +14,7 @@
  *
  * @author   ZiZuu.com <info@zizuu.com>
  * @license  http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- * @source   https://github.com/ZiZuu-store/PrestaShop_module-CleanURLs
+ * @source   https://github.com/ZiZuu-store/PrestaShop_module-zzSEOtk
  */
 
 header('Expires: Fri, 31 Dec 1999 23:59:59 GMT');
