@@ -245,22 +245,22 @@ class zzseotk extends Module
             return;
         }
 
-        $shop = Context::getContext()->shop;
+		$shop = Context::getContext()->shop;
+
         $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
         $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
         $requested_URL = $proto.$shop->domain.$uri;
         //TODO PS1.6.1.0 $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
-            && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false)
-        ) {
+			&& strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
+		) {
+			// skip if actual page is not the canonical page
             return;
         }
 
-        parse_str($_SERVER['QUERY_STRING'], $params);
-        $qs = empty($_SERVER['QUERY_STRING']) ? '' : '?'.http_build_query($params, '', '&');
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */).$qs;
+                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, true /* $has_qs */);
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
