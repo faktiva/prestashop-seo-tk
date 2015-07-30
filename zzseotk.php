@@ -260,7 +260,7 @@ class zzseotk extends Module
 
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, false /* $has_qs */);
+                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, true /* $has_qs */);
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
