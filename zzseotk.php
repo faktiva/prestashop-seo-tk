@@ -301,7 +301,8 @@ class zzseotk extends Module
     private function _getCanonicalLink($id_lang = null, $id_shop = null, $add_qs = true)
     {
         $link = $this->context->link;
-        $controller = $this->_controller;
+		$controller = $this->_controller;
+		$module = Tools::getValue('module');
         $id = (int)Tools::getValue('id_'.$controller);
         $getLinkFunc = 'get'.ucfirst($controller).'Link';
         $params = array();
@@ -310,7 +311,7 @@ class zzseotk extends Module
             return;
         }
 
-        switch ($controller) {
+        switch ($controller.$module) {
             case 'product':
                 // getProductLink($product, $alias = null, $category = null, $ean13 = null, $id_lang = null, $id_shop = null, $ipa = 0, $force_routes = false, $relative_protocol = false)
                 $canonical = $link->getProductLink($id, null, null, null, $id_lang, $id_shop);
@@ -348,18 +349,25 @@ class zzseotk extends Module
                     $params['compare_product_list'] = implode('|', $ids);
                 }
 
-            default:
-                $module = Tools::getValue('module');
+			default:
+				/*
+				if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
+					echo 'XXX<br>';
+					var_dump($controller);
+					var_dump($module);
+					var_dump(Tools::getValue('fc'));
+					echo '<br>XXX';
+				}
+				*/
                 if (Validate::isModuleName($module)) {
                     $_params = $_GET;
                     unset($_params['fc']);
                     // getModuleLink($module, $controller = 'default', array $params = array(), $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
                     $canonical = $link->getModuleLink($module, $controller, $_params, null, $id_lang, $id_shop);
-                    break;
+                } else {
+                    // getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = false)
+                    $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 }
-
-                // getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = false)
-                $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 break;
         }
 
