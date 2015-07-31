@@ -261,6 +261,15 @@ class zzseotk extends Module
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
                 $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, true /* $has_qs */);
+                /*
+                if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
+                    echo 'XXX<br>';
+                    var_dump($url);
+                    var_dump($shop_id);
+                    var_dump($language);
+                    echo '<br>XXX';
+                }
+                */
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
@@ -301,8 +310,8 @@ class zzseotk extends Module
     private function _getCanonicalLink($id_lang = null, $id_shop = null, $add_qs = true)
     {
         $link = $this->context->link;
-		$controller = $this->_controller;
-		$module = Tools::getValue('module');
+        $controller = $this->_controller;
+        $module = Tools::getValue('module');
         $id = (int)Tools::getValue('id_'.$controller);
         $getLinkFunc = 'get'.ucfirst($controller).'Link';
         $params = array();
@@ -349,16 +358,16 @@ class zzseotk extends Module
                     $params['compare_product_list'] = implode('|', $ids);
                 }
 
-			default:
-				/*
-				if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
-					echo 'XXX<br>';
-					var_dump($controller);
-					var_dump($module);
-					var_dump(Tools::getValue('fc'));
-					echo '<br>XXX';
-				}
-				*/
+            default:
+                /*
+                if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
+                    echo 'XXX<br>';
+                    var_dump($controller);
+                    var_dump($module);
+                    var_dump(Tools::getValue('fc'));
+                    echo '<br>XXX';
+                }
+                */
                 if (Validate::isModuleName($module)) {
                     $_params = $_GET;
                     unset($_params['fc']);
