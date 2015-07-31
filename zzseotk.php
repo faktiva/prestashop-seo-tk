@@ -377,7 +377,7 @@ class zzseotk extends Module
 
         // retain pagination for controllers supporting it, remove p=1
         if (($p = Tools::getValue('p')) && $p>1
-            && (in_array($controller, $this->_paginating_controllers) || 'module'==Tools::getValue('fc'))
+            && (in_array($controller, $this->_paginating_controllers) || $module)
         ) {
             $params['p'] = $p;
         }
