@@ -24,3 +24,9 @@ hreflang meta is only added on canonical pages, as explained in the following im
 
 <img src="./hreflang-canonical-image.jpg">
 
+## NoIndex
+
+Automatically assure a `<meta robots="noindex">` tag is added to every PS controller that should not been indexed by search engines.
+This allows for big "robots.txt" cleanup .. and a better SEO 
+
+The phylosophy is "Don't use robots.txt to tell robots to do not index a page, it should be used to block them .. it's different"
