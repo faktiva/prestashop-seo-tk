@@ -76,7 +76,7 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.1.2';
+        $this->version = '1.1.3';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.6.0.9', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
@@ -359,15 +359,6 @@ class zzseotk extends Module
                 }
 
             default:
-                /*
-                if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
-                    echo 'XXX<br>';
-                    var_dump($controller);
-                    var_dump($module);
-                    var_dump(Tools::getValue('fc'));
-                    echo '<br>XXX';
-                }
-                */
                 if (Validate::isModuleName($module)) {
                     $_params = $_GET;
                     unset($_params['fc']);
