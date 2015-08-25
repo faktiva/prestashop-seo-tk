@@ -78,7 +78,7 @@ class zzseotk extends Module
         $this->tab = 'seo';
         $this->version = '1.1.3';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = array('min' => '1.6.0.9', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
 
         parent::__construct();
