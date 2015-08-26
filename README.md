@@ -5,6 +5,8 @@ Handles a few basic SEO related improvements such as:
 * "canonical"
 * "noindex"
 
+Being reported to work on **PS >= 1.6.0.9** .. but it should work on PS 1.6.x.x too
+
 For production use the **latest stable [release](https://github.com/ZiZuu-store/PrestaShop_module-zzSEOtk/releases/)**
 
 For developing or Pull Request please use only the **[dev](https://github.com/ZiZuu-store/PrestaShop_module-zzSEOtk/tree/dev)** branch
