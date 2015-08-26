@@ -20,7 +20,7 @@
 if (!defined('_PS_VERSION_')) {
     exit;
 }
-    
+
 class zzseotk extends Module
 {
     private $_controller;
@@ -76,9 +76,9 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.1.3';
+        $this->version = '1.1.4';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = array('min' => '1.6.0.9', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
 
         parent::__construct();
@@ -88,7 +88,7 @@ class zzseotk extends Module
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall "ZiZuu SEO ToolKit"?');
     }
-        
+
     public function install()
     {
         if (Shop::isFeatureActive()) {
@@ -102,7 +102,7 @@ class zzseotk extends Module
             && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', false)
         ;
     }
-    
+
     public function uninstall()
     {
         return parent::uninstall()
@@ -139,7 +139,7 @@ class zzseotk extends Module
                 Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', (bool)Tools::getValue('ZZSEOTK_NOBOTS_ENABLED'));
             }
         }
-    
+
         $_html .= $this->renderForm();
 
         return $_html;
@@ -246,10 +246,10 @@ class zzseotk extends Module
         }
 
         $shop = Context::getContext()->shop;
-
         $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
         $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
         $requested_URL = $proto.$shop->domain.$uri;
+
         //TODO PS1.6.1.0 $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
@@ -294,7 +294,6 @@ class zzseotk extends Module
         if (!Configuration::get('ZZSEOTK_CANONICAL_ENABLED')) {
             return;
         }
-
 
         $canonical = $this->_getCanonicalLink();
 
@@ -352,7 +351,7 @@ class zzseotk extends Module
                 }
             case 'products-comparison':
                 if ($ids_str = Tools::getValue('compare_product_list')) {
-                    // use an ordered products' list as canonical param 
+                    // use an ordered products' list as canonical param
                     $ids = explode('|', $ids_str);
                     sort($ids, SORT_NUMERIC);
                     $params['compare_product_list'] = implode('|', $ids);
@@ -388,7 +387,7 @@ class zzseotk extends Module
         if ($add_qs && count($params)>0) {
             $canonical .= '?'.http_build_query($params, '', '&');
         }
-        
+
         return $canonical;
     }
 }
