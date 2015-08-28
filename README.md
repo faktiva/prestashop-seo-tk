@@ -1,5 +1,7 @@
 # [PrestaShop module "ZiZuu SEO ToolKit"](https://github.com/ZiZuu-store/PrestaShop_module-zzSEOtk)
 
+[![Join the chat at https://gitter.im/ZiZuu-store/PrestaShop_module-zzSEOtk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ZiZuu-store/PrestaShop_module-zzSEOtk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Handles a few basic SEO related improvements such as:
 * "hreflang"
 * "canonical"
