@@ -1,21 +1,27 @@
 <?php
 
 /**
- * 
- * NOTICE OF LICENSE
  *
- * This source file is subject to the Academic Free License (AFL 3.0)
- * It is available through the world-wide-web at this URL:
- * http://opensource.org/licenses/afl-3.0.php
+ * NOTICE OF LICENSE
+ * This source file is subject to the License terms Academi cFined in the file LICENSE.md
  *
  * DISCLAIMER
  * This code is provided as is without any warranty.
  * No promise of being safe or secure
  *
  * @author   ZiZuu.com <info@zizuu.com>
- * @license  http://opensource.org/licenses/afl-3.0.php	Academic Free License (AFL 3.0)
  * @link     source available at https://github.com/ZiZuu-store/
  */
+
+/*
+if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
+    echo 'XXX<br>';
+    var_dump($url);
+    var_dump($shop_id);
+    var_dump($language);
+    echo '<br>XXX';
+}
+*/
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -112,7 +118,7 @@ class zzseotk extends Module
         ;
     }
 
-    //FIXME	
+    //FIXME
     public function _clearCache($template, $cache_id = null, $compile_id = null)
     {
         parent::_clearCache('meta-hreflang.tpl', $this->getCacheId($cache_id));
@@ -181,12 +187,12 @@ class zzseotk extends Module
                 ),
             ),
             'nobots' => array(
-                'title' => $this->l('noindex,nofollow'),
+                'title' => $this->l('"nobots"'),
                 'icon' => 'icon-sitemap',
                 'fields' => array(
                     'ZZSEOTK_NOBOTS_ENABLED' => array(
-                        'title' => $this->l('Enable "noindex,nofollow" meta tag'),
-                        'hint' => $this->l('Set "noindex,nofollow" meta tag into the html head to avoid search engine indicization of "private" pages. Public pages are not affected of course.'),
+                        'title' => $this->l('Enable "noindex" meta tag'),
+                        'hint' => $this->l('Set "noindex" meta tag into the html head to avoid search engine indicization of "private" pages. Public pages are not affected of course.'),
                         'validation' => 'isBool',
                         'cast' => 'boolval',
                         'type' => 'bool',
@@ -233,9 +239,11 @@ class zzseotk extends Module
         if (Configuration::get('ZZSEOTK_NOBOTS_ENABLED')) {
             if (in_array($this->_controller, $this->_nobots_controllers)) {
                 $this->context->smarty->assign('nobots', true);
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -246,11 +254,17 @@ class zzseotk extends Module
         }
 
         $shop = Context::getContext()->shop;
-        $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
-        $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
-        $requested_URL = $proto.$shop->domain.$uri;
+        if (version_compare(_PS_VERSION_, '1.6.1.0', '>=')) {
+            $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */) . $_SERVER['REQUEST_URI'];
+        } else {
+            $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
+            $domain = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? $shop->domain_ssl : $shop->domain;
+            $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
+        }
+        if ('index' == $this->_controller) {
+            $requested_URL = rtrim($requested_URL, '/');
+        }
 
-        //TODO PS1.6.1.0 $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
         ) {
@@ -261,15 +275,6 @@ class zzseotk extends Module
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
                 $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, true /* $has_qs */);
-                /*
-                if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
-                    echo 'XXX<br>';
-                    var_dump($url);
-                    var_dump($shop_id);
-                    var_dump($language);
-                    echo '<br>XXX';
-                }
-                */
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
@@ -334,12 +339,12 @@ class zzseotk extends Module
                 break;
 
             case 'cms-category':
-                // getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                // getCMSCategoryLink ($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'supplier':
-                // getSupplierLink($supplier, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                // getSupplierLink    ($supplier,     $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'manufacturer':
-                // getManufacturerLink ($manufacturer, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-                $canonical = $link->{$getLinkFunc}($id);
+                // getManufacturerLink($manufacturer, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                $canonical = $link->{$getLinkFunc}($id, null, $id_lang, $id_shop);
                 break;
 
             case 'search':
