@@ -254,11 +254,12 @@ class zzseotk extends Module
         }
 
         $shop = Context::getContext()->shop;
+
+        //TODO PS >= 1.6.1.0 : $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
         $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
         $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
         $requested_URL = $proto.$shop->domain.$uri;
 
-        //TODO PS1.6.1.0 $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
         ) {
