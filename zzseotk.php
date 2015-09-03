@@ -373,7 +373,7 @@ class zzseotk extends Module
         }
 
         if ('index' == $controller && '/' == strtok($_SERVER['REQUEST_URI'], '?')) {
-            $requested_URL = rtrim($requested_URL, '/');
+            $canonical = rtrim($canonical, '/');
         }
 
         // retain pagination for controllers supporting it, remove p=1
