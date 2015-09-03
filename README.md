@@ -35,3 +35,7 @@ Automatically assure a `<meta robots="noindex">` tag is added to every PS contro
 This allows for big "robots.txt" cleanup .. and a better SEO 
 
 The phylosophy is "Don't use robots.txt to tell robots to do not index a page, it should be used to block them .. it's different"
+
+# License
+
+[LICENSE.md](LICENSE.md)
