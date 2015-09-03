@@ -15,11 +15,11 @@
 
 function zzdump($obj)
 {
-	if (true || in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
-		echo 'XXX<br>';
-		var_dump($obj);
-		echo '<br>XXX';
-	}
+    if (true || in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
+        echo 'XXX<br>';
+        var_dump($obj);
+        echo '<br>XXX';
+    }
 }
 
 if (!defined('_PS_VERSION_')) {
@@ -343,9 +343,9 @@ class zzseotk extends Module
                 // getSupplierLink    ($supplier,     $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'manufacturer':
                 // getManufacturerLink($manufacturer, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-				$canonical = $id 
-					? $link->{$getLinkFunc}($id, null, $id_lang, $id_shop)
-					: $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
+                $canonical = $id
+                    ? $link->{$getLinkFunc}($id, null, $id_lang, $id_shop)
+                    : $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 break;
 
             case 'search':
