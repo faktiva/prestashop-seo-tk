@@ -13,15 +13,14 @@
  * @link     source available at https://github.com/ZiZuu-store/
  */
 
-/*
-if (in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
-    echo 'XXX<br>';
-    var_dump($url);
-    var_dump($shop_id);
-    var_dump($language);
-    echo '<br>XXX';
+function zzdump($obj)
+{
+    if (true || in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
+        echo 'XXX<br>';
+        var_dump($obj);
+        echo '<br>XXX';
+    }
 }
-*/
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -217,8 +216,8 @@ class zzseotk extends Module
     public function hookHeader()
     {
         $this->_controller = Dispatcher::getInstance()->getController();
-        if (!empty(Context::getContext()->controller->php_self)) {
-            $this->_controller = Context::getContext()->controller->php_self;
+        if (!empty($this->context->controller->php_self)) {
+            $this->_controller = $this->context->controller->php_self;
         }
 
         if ($this->_handleNobots()) {
@@ -253,12 +252,17 @@ class zzseotk extends Module
             return;
         }
 
-        $shop = Context::getContext()->shop;
-
-        //TODO PS >= 1.6.1.0 : $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */).$uri;
-        $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
-        $uri = ('index' == $this->_controller) ? '' : $_SERVER['REQUEST_URI'];
-        $requested_URL = $proto.$shop->domain.$uri;
+        $shop = $this->context->shop;
+        if (version_compare(_PS_VERSION_, '1.6.1.0', '>=')) {
+            $requested_URL = $shop->getBaseURL(true /* $auto_secure_mode */, false /* $add_base_uri */) . $_SERVER['REQUEST_URI'];
+        } else {
+            $proto = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? 'https://' : 'http://';
+            $domain = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? $shop->domain_ssl : $shop->domain;
+            $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
+        }
+        if ('index' == $this->_controller) {
+            $requested_URL = rtrim($requested_URL, '/');
+        }
 
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
@@ -339,7 +343,9 @@ class zzseotk extends Module
                 // getSupplierLink    ($supplier,     $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'manufacturer':
                 // getManufacturerLink($manufacturer, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-                $canonical = $link->{$getLinkFunc}($id, null, $id_lang, $id_shop);
+                $canonical = $id
+                    ? $link->{$getLinkFunc}($id, null, $id_lang, $id_shop)
+                    : $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 break;
 
             case 'search':
@@ -356,7 +362,6 @@ class zzseotk extends Module
                     sort($ids, SORT_NUMERIC);
                     $params['compare_product_list'] = implode('|', $ids);
                 }
-
             default:
                 if (Validate::isModuleName($module)) {
                     $_params = $_GET;
