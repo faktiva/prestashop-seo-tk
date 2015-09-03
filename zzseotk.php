@@ -260,9 +260,6 @@ class zzseotk extends Module
             $domain = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? $shop->domain_ssl : $shop->domain;
             $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
         }
-        if ('index' == $this->_controller) {
-            $requested_URL = rtrim($requested_URL, '/');
-        }
 
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
@@ -375,8 +372,8 @@ class zzseotk extends Module
                 break;
         }
 
-        if ('index' == $controller) {
-            $canonical = rtrim($canonical, '/');
+        if ('index' == $controller && '/' == strtok($_SERVER['REQUEST_URI'], '?')) {
+            $requested_URL = rtrim($requested_URL, '/');
         }
 
         // retain pagination for controllers supporting it, remove p=1
