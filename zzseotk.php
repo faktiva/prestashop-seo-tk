@@ -81,7 +81,7 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.1.4';
+        $this->version = '1.1.5';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
@@ -260,9 +260,6 @@ class zzseotk extends Module
             $domain = (Configuration::get('PS_SSL_ENABLED') && Configuration::get('PS_SSL_ENABLED_EVERYWHERE')) ? $shop->domain_ssl : $shop->domain;
             $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
         }
-        if ('index' == $this->_controller) {
-            $requested_URL = rtrim($requested_URL, '/');
-        }
 
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
             && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
@@ -375,8 +372,8 @@ class zzseotk extends Module
                 break;
         }
 
-        if ('index' == $controller) {
-            $canonical = rtrim($canonical, '/');
+        if ('index' == $controller && '/' == strtok($_SERVER['REQUEST_URI'], '?')) {
+            $requested_URL = rtrim($requested_URL, '/');
         }
 
         // retain pagination for controllers supporting it, remove p=1
