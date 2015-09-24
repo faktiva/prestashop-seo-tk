@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ *
  * NOTICE OF LICENSE
  *
  * This source file is subject to the Academic Free License (AFL 3.0)
@@ -25,4 +25,4 @@ header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');
 
 header('Location: ../');
-exit;
+return;
