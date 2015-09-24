@@ -14,5 +14,3 @@ rules:
         enabled: true
         max_length: 60
         threshold: 5
-    php.psr1:
-        enabled: false
