@@ -13,20 +13,11 @@
  * @link     source available at https://github.com/ZiZuu-store/
  */
 
-function zzdump($obj)
-{
-    if (true || in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', Configuration::get('PS_MAINTENANCE_IP')))) {
-        echo 'XXX<br>';
-        var_dump($obj);
-        echo '<br>XXX';
-    }
-}
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class zzseotk extends Module
+class zzSeoTK extends Module
 {
     private $_controller;
 
