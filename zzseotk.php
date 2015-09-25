@@ -350,6 +350,13 @@ class zzSeoTK extends Module
                     sort($ids, SORT_NUMERIC);
                     $params['compare_product_list'] = implode('|', $ids);
                 }
+
+            case 'articlestblog': //XXX: to be removed and handled in a more "agnostic" way
+                if (($id_blog = Tools::getValue('id_blog')) && ($blog = StBlogClass::getBlogInfo($id_blog)))
+                    $param = array('id_blog'=>$blog['id_st_blog'],'rewrite'=>$blog['link_rewrite']);
+                $canonical = $this->context->link->getModuleLink('stblog',Dispatcher::getInstance()->getController(), $param);
+                break;
+
             default:
                 if (Validate::isModuleName($module)) {
                     $_params = $_GET;
