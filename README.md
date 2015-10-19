@@ -40,3 +40,7 @@ The phylosophy is "Don't use robots.txt to tell robots to do not index a page, i
 # License
 
 [LICENSE.md](LICENSE.md)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ZiZuu-store/zzseotk/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
