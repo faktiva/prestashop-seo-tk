@@ -325,6 +325,14 @@ class zzSeoTK extends Module
                 $canonical = $link->getCmsLink($id, null, null, $id_lang, $id_shop);
                 break;
 
+            // This one handles the custom blog pages of Leo Theme themes
++			case 'blogleoblog':
++               $blog = new LeoBlogBlog( $_GET['id'], $id_lang );
++               $_params = $_GET;
++				$_params['rewrite'] = $blog->link_rewrite;
++				$canonical = $link->getModuleLink($module, $controller, $_params, null, $id_lang, $id_shop);
++			    break;
+
             case 'cms-category':
                 // getCMSCategoryLink ($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'supplier':
