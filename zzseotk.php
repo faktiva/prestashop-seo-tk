@@ -17,7 +17,7 @@ if (!defined('_PS_VERSION_')) {
     return;
 }
 
-class zzSeoTK extends Module
+class zzseotk extends Module
 {
     private $_controller;
 
@@ -307,10 +307,6 @@ class zzSeoTK extends Module
         $getLinkFunc = 'get'.ucfirst($controller).'Link';
         $params = array();
 
-        // Define language and shop from PS context
-		$id_lang = $this->context->language->id;
-		$id_shop = $this->context->shop->id;
-
         if (!$link || !$controller) {
             return;
         }
@@ -326,18 +322,15 @@ class zzSeoTK extends Module
                 break;
             case 'cms':
                 // PrestaShop 1.6 seems to handle cms-category with module name "cms" but id "id_cms_category"
-+               // Check for that to generate the right canonical URL
-			    if( $_GET['id_cms'] ) {
-                  // getCMSLink($cms, $alias = null, $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-                  $canonical = $link->getCmsLink($id, null, null, $id_lang, $id_shop);
-				}
-				elseif( $_GET['id_cms_category'] ) {
-				  // getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
-				  $canonical = $link->getCMSCategoryLink($_GET['id_cms_category'], null, $id_lang, $id_shop);
-				}
+                if ($cat_id = (int)Tools::getValue('id_cms_category')) {
+                    // getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                    $canonical = $link->getCMSCategoryLink($cat_id, null, $id_lang, $id_shop);
+                } else {
+                    // getCMSLink($cms, $alias = null, $ssl = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
+                    $canonical = $link->getCmsLink($id, null, null, $id_lang, $id_shop);
+                }
                 break;
 
-            // This one is not used (see above)
             case 'cms-category':
                 // getCMSCategoryLink ($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'supplier':
