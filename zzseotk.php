@@ -74,7 +74,7 @@ class zzseotk extends Module
         $this->tab = 'seo';
         $this->version = '1.1.5';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
 
         parent::__construct();
@@ -321,7 +321,6 @@ class zzseotk extends Module
                 $canonical = $link->getCategoryLink($id, null, $id_lang, Tools::getValue('selected_filters', null), $id_shop);
                 break;
             case 'cms':
-                // PrestaShop 1.6 seems to handle cms-category with module name "cms" but id "id_cms_category"
                 if ($cat_id = (int)Tools::getValue('id_cms_category')) {
                     // getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
                     $canonical = $link->getCMSCategoryLink($cat_id, null, $id_lang, $id_shop);
@@ -331,8 +330,6 @@ class zzseotk extends Module
                 }
                 break;
 
-            case 'cms-category':
-                // getCMSCategoryLink ($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'supplier':
                 // getSupplierLink    ($supplier,     $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'manufacturer':
