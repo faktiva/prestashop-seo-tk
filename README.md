@@ -1,6 +1,7 @@
 # [PrestaShop module "ZiZuu SEO ToolKit"](https://github.com/ZiZuu-store/zzSEOtk)
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e/mini.png)](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e)
+
 [![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ZiZuu-store/zzSEOtk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Handles a few basic SEO related improvements such as:
@@ -8,7 +9,7 @@ Handles a few basic SEO related improvements such as:
 * "canonical"
 * "noindex"
 
-Being reported to work on **PS >= 1.6.0.9** .. but it should work on PS 1.6.x.x too
+Being reported to work on **PS >= 1.6.0.9** .. but it should work on PS 1.6.x.x too and *could work* on PS >= 1.5.0.1
 
 For production use the **latest stable [release](https://github.com/ZiZuu-store/zzSEOtk/releases/)**
 
