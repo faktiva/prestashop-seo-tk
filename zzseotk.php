@@ -330,6 +330,14 @@ class zzseotk extends Module
                 }
                 break;
 
+            // This one handles the custom blog pages of Leo Theme themes
+            case 'blogleoblog':
+                $blog = new LeoBlogBlog((int)Tools::getValue('id'), is_null($id_lang) ? $this->context->language->id : $id_lang);
+                $_params = $_GET;
+                $_params['rewrite'] = $blog->link_rewrite;
+                $canonical = $link->getModuleLink($module, $controller, $_params, null, $id_lang, $id_shop);
+                break;
+
             case 'supplier':
                 // getSupplierLink    ($supplier,     $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
             case 'manufacturer':
