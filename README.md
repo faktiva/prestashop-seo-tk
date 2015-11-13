@@ -5,7 +5,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/ZiZuu-store/zzSEOtk.svg?style=plastic)](https://github.com/ZiZuu-store/zzSEOtk/issues)
 
 [![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ZiZuu-store/zzSEOtk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/ZiZuu-store/zzSEOtk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module: "@ZiZuu SEO ToolKit"&url=https://github.com/ZiZuu-store/zzSEOtk)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ZiZuu-store/zzSEOtk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module by @ZiZuu_Store: "ZiZuu SEO ToolKit"&url=https://github.com/ZiZuu-store/zzSEOtk)
 
 
 Handles a few basic SEO related improvements such as:
