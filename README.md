@@ -4,7 +4,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/ZiZuu-store/zzSEOtk.svg?style=plastic)](https://github.com/ZiZuu-store/zzSEOtk/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/ZiZuu-store/zzSEOtk.svg?style=plastic)](https://github.com/ZiZuu-store/zzSEOtk/issues)
 
-[![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ZiZuu-store/zzSEOtk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=plastic)](https://gitter.im/ZiZuu-store/zzSEOtk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/ZiZuu-store/zzSEOtk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module by @ZiZuu_Store: "ZiZuu SEO ToolKit"&url=https://github.com/ZiZuu-store/zzSEOtk)
 
 
