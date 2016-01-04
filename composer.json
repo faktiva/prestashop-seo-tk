@@ -1,0 +1,29 @@
+{
+  "name": "zizuu-store/zzseotk",
+  "description": "Prestashop module \"ZiZuu SEO toolkit\". It handles a few SEO-related improvements, such as \"hreflang\", \"canonical\" and \"noindex\"",
+  "homepage": "https://github.com/ZiZuu-store/zzSEOtk",
+  "license": "CC-BY-NC-SA-4.0",
+  "authors": [
+    {
+      "name": "ZiZuu Store",
+      "email": "info@ZiZuu.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.2"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "type": "prestashop-module",
+  "require-dev": {
+    "fabpot/php-cs-fixer": "^1.11",
+    "symfony/var-dumper": "^3.0",
+    "symfony/debug": "^3.0"
+  },
+  "scripts": {
+    "csfix": [
+      "php-cs-fixer -vvv -n fix; echo"
+    ]
+  }
+}
