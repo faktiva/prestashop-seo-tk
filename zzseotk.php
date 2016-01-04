@@ -17,6 +17,14 @@ if (!defined('_PS_VERSION_')) {
     return;
 }
 
+// Uncomment to enable debugging
+// define('ZZ_DEBUG', true);
+
+if (defined('ZZ_DEBUG') && ZZ_DEBUG && is_readable(__DIR__.'/vendor/autoload.php')) {
+    require __DIR__.'/vendor/autoload.php';
+    Symfony\Component\Debug\Debug::enable();
+}
+
 class zzseotk extends Module
 {
     private $_controller;
