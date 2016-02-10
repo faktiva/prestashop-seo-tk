@@ -1,4 +1,5 @@
-# [PrestaShop module "ZiZuu SEO ToolKit"](https://github.com/ZiZuu-store/zzSEOtk)
+[PrestaShop module "ZiZuu SEO ToolKit"](https://github.com/ZiZuu-store/zzSEOtk)
+===
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e/mini.png)](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e)
 
@@ -40,4 +41,9 @@ The phylosophy is "Don't use robots.txt to tell robots to do not index a page, i
 
 # License
 
-[LICENSE.md](LICENSE.md)
+![Creative Commons BY-NC-SA License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+
+
+**[ZiZuu SEO ToolKit](https://github.com/ZiZuu-store/zzSEOtk)** by [ZiZuu Store](https://github.com/ZiZuu-store) is licensed under a **Creative Commons [Attribution-NonCommercial-ShareAlike](http://creativecommons.org/licenses/by-nc-sa/4.0/) 4.0 International License**.
+
+Permissions beyond the scope of this license may be available contacting us at info@ZiZuu.com.
