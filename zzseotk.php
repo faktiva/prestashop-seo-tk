@@ -80,7 +80,7 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.1.5';
+        $this->version = '1.1.7';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
         $this->bootstrap = true;

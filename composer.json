@@ -9,21 +9,21 @@
       "email": "info@ZiZuu.com"
     }
   ],
-  "require": {
-    "php": ">=5.3.2"
-  },
+  "type": "prestashop-module",
   "config": {
     "preferred-install": "dist"
   },
-  "type": "prestashop-module",
   "require-dev": {
     "fabpot/php-cs-fixer": "^1.11",
     "symfony/var-dumper": "^3.0",
     "symfony/debug": "^3.0"
   },
+  "require": {
+    "php": ">=5.3.2"
+  },
   "scripts": {
     "csfix": [
-      "php-cs-fixer -vvv -n fix; echo"
+      "php-cs-fixer -vvv fix"
     ]
   }
 }
