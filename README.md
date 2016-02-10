@@ -3,11 +3,17 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e/mini.png)](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e)
 [![GitHub issues](https://img.shields.io/github/issues/ZiZuu-store/zzSEOtk.svg?style=plastic)](https://github.com/ZiZuu-store/zzSEOtk/issues)
 
+[![Packagist](https://img.shields.io/packagist/l/zizuu-store/zzseotk.svg?style=plastic)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![GitHub release](https://img.shields.io/github/release/ZiZuu-store/zzSEOtk.svg?style=plastic&label=latest)](https://github.com/ZiZuu-store/zzSEOtk/releases/latest)
+
+[![Packagist](https://img.shields.io/packagist/dt/zizuu-store/zzseotk.svg?style=plastic)](https://packagist.org/packages/zizuu-store/zzseotk)
 [![GitHub stars](https://img.shields.io/github/stars/ZiZuu-store/zzSEOtk.svg?style=social)](https://github.com/ZiZuu-store/zzSEOtk/stargazers)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/ZiZuu-store/zzSEOtk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic%20@PrestaShop%20module%20by%20@ZiZuu_Store:%20%22ZiZuu%20SEO%20ToolKit%22&url=https%3A%2F%2Fgithub.com%2FZiZuu-store%2FzzSEOtk)
+[![GitHub forks](https://img.shields.io/github/forks/ZiZuu-store/zzSEOtk.svg?style=social&label=Forks)](https://github.com/ZiZuu-store/zzSEOtk/network)
 
-[![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=plastic)](https://gitter.im/ZiZuu-store/zzSEOtk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=plastic)](https://gitter.im/ZiZuu-store/zzSEOtk)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ZiZuu-store/zzSEOtk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module by @ZiZuu_Store: "ZiZuu SEO ToolKit"&url=https://github.com/ZiZuu-store/zzSEOtk)
 
+___
 
 Handles a few basic SEO related improvements such as:
 * "hreflang"
