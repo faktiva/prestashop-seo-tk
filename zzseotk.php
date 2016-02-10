@@ -17,6 +17,14 @@ if (!defined('_PS_VERSION_')) {
     return;
 }
 
+// Set true to enable debugging
+define('ZZ_DEBUG', false);
+
+if (defined('ZZ_DEBUG') && ZZ_DEBUG && is_readable(__DIR__.'/vendor/autoload.php')) {
+    require __DIR__.'/vendor/autoload.php';
+    Symfony\Component\Debug\Debug::enable();
+}
+
 class zzseotk extends Module
 {
     private $_controller;
@@ -227,7 +235,9 @@ class zzseotk extends Module
     private function _handleNobots()
     {
         if (Configuration::get('ZZSEOTK_NOBOTS_ENABLED')) {
-            if (in_array($this->_controller, $this->_nobots_controllers)) {
+            if (in_array($this->_controller, $this->_nobots_controllers)
+                || Tools::getValue('selected_filters')
+            ) {
                 $this->context->smarty->assign('nobots', true);
 
                 return true;
