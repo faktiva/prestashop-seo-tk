@@ -3,13 +3,13 @@
   "description": "Prestashop module \"ZiZuu SEO toolkit\". It handles a few SEO-related improvements, such as \"hreflang\", \"canonical\" and \"noindex\"",
   "homepage": "https://github.com/ZiZuu-store/zzSEOtk",
   "license": "CC-BY-NC-SA-4.0",
+  "type": "prestashop-module",
   "authors": [
     {
       "name": "ZiZuu Store",
       "email": "info@ZiZuu.com"
     }
   ],
-  "type": "prestashop-module",
   "config": {
     "preferred-install": "dist"
   },
