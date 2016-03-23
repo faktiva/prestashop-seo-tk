@@ -394,6 +394,9 @@ class zzseotk extends Module
             $canonical .= '?'.http_build_query($params, '', '&');
         }
 
-        return $canonical;
+        //XXX Hack, Link class should return the right protocol for a given shop but it doesn't
+        $protocol = Configuration::get('PS_SSL_ENABLED', null, null, $id_shop) && Configuration::get('PS_SSL_ENABLED_EVERYWHERE', null, null, $id_shop) ? 'https' : 'http' ;
+
+        return preg_replace('/^https?/i', $protocol, $canonical);
     }
 }
