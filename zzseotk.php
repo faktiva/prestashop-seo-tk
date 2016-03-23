@@ -308,14 +308,13 @@ class zzseotk extends Module
         return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId($canonical));
     }
 
-    private function _getCanonicalByLink($id_lang = null, $id_shop = null)
+    private function _getCanonicalByLink(&$params, $id_lang = null, $id_shop = null)
     {
         $link = $this->context->link;
         $controller = $this->_controller;
         $module = Tools::getValue('module');
         $id = (int)Tools::getValue('id_'.$controller);
         $getLinkFunc = 'get'.ucfirst($controller).'Link';
-        $params = array();
 
         if (!$link || !$controller) {
             return;
@@ -380,7 +379,9 @@ class zzseotk extends Module
 
     private function _getCanonical($id_lang = null, $id_shop = null, $add_qs = true)
     {
-        $canonical = $this->_getCanonicalByLink($id_lang, $id_shop);
+        $params = array();
+
+        $canonical = $this->_getCanonicalByLink($params, $id_lang, $id_shop);
         if ('index' == $controller && '/' == strtok($_SERVER['REQUEST_URI'], '?')) {
             $canonical = rtrim($canonical, '/');
         }
