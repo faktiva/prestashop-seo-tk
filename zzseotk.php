@@ -325,10 +325,12 @@ class zzseotk extends Module
                 // getProductLink($product, $alias = null, $category = null, $ean13 = null, $id_lang = null, $id_shop = null, $ipa = 0, $force_routes = false, $relative_protocol = false)
                 $canonical = $link->getProductLink($id, null, null, null, $id_lang, $id_shop);
                 break;
+
             case 'category':
                 // getCategoryLink($category, $alias = null, $id_lang = null, $selected_filters = null, $id_shop = null, $relative_protocol = false)
                 $canonical = $link->getCategoryLink($id, null, $id_lang, Tools::getValue('selected_filters', null), $id_shop);
                 break;
+
             case 'cms':
                 if ($cat_id = (int)Tools::getValue('id_cms_category')) {
                     // getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
@@ -379,6 +381,7 @@ class zzseotk extends Module
 
     private function _getCanonical($id_lang = null, $id_shop = null, $add_qs = true)
     {
+        $controller = $this->_controller;
         $params = array();
 
         $canonical = $this->_getCanonicalByLink($params, $id_lang, $id_shop);
@@ -388,7 +391,7 @@ class zzseotk extends Module
 
         // retain pagination for controllers supporting it, remove p=1
         if (($p = Tools::getValue('p')) && $p > 1
-            && (in_array($controller, $this->_paginating_controllers) || $module)
+            && (in_array($controller, $this->_paginating_controllers) || Tools::getValue('module'))
         ) {
             $params['p'] = $p;
         }
@@ -396,7 +399,7 @@ class zzseotk extends Module
         // remove "dirty" QS
         $canonical = strtok($canonical, '?');
         // add "canonical" QS if enabled
-        if ($add_qs && count($params)>0) {
+        if ($add_qs && count($params) > 0) {
             $canonical .= '?'.http_build_query($params, '', '&');
         }
 
