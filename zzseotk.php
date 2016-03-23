@@ -80,7 +80,7 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.2.0';
+        $this->version = '1.2.1';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
@@ -263,7 +263,7 @@ class zzseotk extends Module
         }
 
         if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
-            && strtok($requested_URL, '?') != $this->_getCanonicalLink(null, null, false /* $has_qs */)
+            && strtok($requested_URL, '?') != $this->_getCanonical(null, null, false /* $has_qs */)
         ) {
             // skip if actual page is not the canonical page
             return;
@@ -271,7 +271,7 @@ class zzseotk extends Module
 
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
             foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-                $url = $this->_getCanonicalLink($language['id_lang'], $shop_id, true /* $has_qs */);
+                $url = $this->_getCanonical($language['id_lang'], $shop_id, true /* $has_qs */);
                 $shops_data[$shop_id][] = array(
                     'url' => $url,
                     'language' => array(
@@ -297,7 +297,7 @@ class zzseotk extends Module
             return;
         }
 
-        $canonical = $this->_getCanonicalLink();
+        $canonical = $this->_getCanonical();
 
         if (!$this->isCached('meta-canonical.tpl', $this->getCacheId($canonical))) {
             $this->context->smarty->assign(array(
@@ -308,14 +308,13 @@ class zzseotk extends Module
         return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId($canonical));
     }
 
-    private function _getCanonicalLink($id_lang = null, $id_shop = null, $add_qs = true)
+    private function _getCanonicalByLink(&$params, $id_lang = null, $id_shop = null)
     {
         $link = $this->context->link;
         $controller = $this->_controller;
         $module = Tools::getValue('module');
         $id = (int)Tools::getValue('id_'.$controller);
         $getLinkFunc = 'get'.ucfirst($controller).'Link';
-        $params = array();
 
         if (!$link || !$controller) {
             return;
@@ -326,10 +325,12 @@ class zzseotk extends Module
                 // getProductLink($product, $alias = null, $category = null, $ean13 = null, $id_lang = null, $id_shop = null, $ipa = 0, $force_routes = false, $relative_protocol = false)
                 $canonical = $link->getProductLink($id, null, null, null, $id_lang, $id_shop);
                 break;
+
             case 'category':
                 // getCategoryLink($category, $alias = null, $id_lang = null, $selected_filters = null, $id_shop = null, $relative_protocol = false)
                 $canonical = $link->getCategoryLink($id, null, $id_lang, Tools::getValue('selected_filters', null), $id_shop);
                 break;
+
             case 'cms':
                 if ($cat_id = (int)Tools::getValue('id_cms_category')) {
                     // getCMSCategoryLink($cms_category, $alias = null, $id_lang = null, $id_shop = null, $relative_protocol = false)
@@ -373,16 +374,24 @@ class zzseotk extends Module
                     // getPageLink($controller, $ssl = null, $id_lang = null, $request = null, $request_url_encode = false, $id_shop = null, $relative_protocol = false)
                     $canonical = $link->getPageLink($controller, null, $id_lang, null, false, $id_shop);
                 }
-                break;
         }
 
+        return $canonical;
+    }
+
+    private function _getCanonical($id_lang = null, $id_shop = null, $add_qs = true)
+    {
+        $controller = $this->_controller;
+        $params = array();
+
+        $canonical = $this->_getCanonicalByLink($params, $id_lang, $id_shop);
         if ('index' == $controller && '/' == strtok($_SERVER['REQUEST_URI'], '?')) {
             $canonical = rtrim($canonical, '/');
         }
 
         // retain pagination for controllers supporting it, remove p=1
-        if (($p = Tools::getValue('p')) && $p>1
-            && (in_array($controller, $this->_paginating_controllers) || $module)
+        if (($p = Tools::getValue('p')) && $p > 1
+            && (in_array($controller, $this->_paginating_controllers) || Tools::getValue('module'))
         ) {
             $params['p'] = $p;
         }
@@ -390,11 +399,11 @@ class zzseotk extends Module
         // remove "dirty" QS
         $canonical = strtok($canonical, '?');
         // add "canonical" QS if enabled
-        if ($add_qs && count($params)>0) {
+        if ($add_qs && count($params) > 0) {
             $canonical .= '?'.http_build_query($params, '', '&');
         }
 
-        //XXX Hack, Link class should return the right protocol for a given shop but it doesn't
+        // HACK: Link class should return the right protocol for a given shop but it doesn't
         $protocol = Configuration::get('PS_SSL_ENABLED', null, null, $id_shop) && Configuration::get('PS_SSL_ENABLED_EVERYWHERE', null, null, $id_shop) ? 'https' : 'http' ;
 
         return preg_replace('/^https?/i', $protocol, $canonical);
