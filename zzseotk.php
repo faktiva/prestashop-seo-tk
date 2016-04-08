@@ -80,10 +80,10 @@ class zzseotk extends Module
         $this->name = 'zzseotk';
         $this->author = 'ZiZuu Store';
         $this->tab = 'seo';
-        $this->version = '1.2.1';
+        $this->version = '1.2.2';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
+        $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
 
         parent::__construct();
 
@@ -262,11 +262,8 @@ class zzseotk extends Module
             $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
         }
 
-        if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED')
-            && strtok($requested_URL, '?') != $this->_getCanonical(null, null, false /* $has_qs */)
-        ) {
-            // skip if actual page is not the canonical page
-            return;
+        if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED') && !_isCanonicalRequest($requested_URL)) {
+            return; // skip if actual page is not the canonical page
         }
 
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
@@ -407,5 +404,17 @@ class zzseotk extends Module
         $protocol = Configuration::get('PS_SSL_ENABLED', null, null, $id_shop) && Configuration::get('PS_SSL_ENABLED_EVERYWHERE', null, null, $id_shop) ? 'https' : 'http' ;
 
         return preg_replace('/^https?/i', $protocol, $canonical);
+    }
+
+    private function _isCanonicalRequest($url)
+    {
+        $canonical = $this->_getCanonical(null, null, false /* $has_qs */);
+        $request = strtok($url, '?');
+        if ('index' == $this->_controller) {
+            $request = rtrim($request, '/');
+            $canonical = rtrim($canonical, '/');
+        }
+
+        return ($request == $canonical);
     }
 }
