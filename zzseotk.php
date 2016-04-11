@@ -262,7 +262,7 @@ class zzseotk extends Module
             $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
         }
 
-        if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED') && !_isCanonicalRequest($requested_URL)) {
+        if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED') && !$this->_isCanonicalRequest($requested_URL)) {
             return; // skip if actual page is not the canonical page
         }
 
