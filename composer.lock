@@ -4,22 +4,22 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c446a5f0fafa0fd3b48a6af1b06bc25",
-    "content-hash": "e8da983a6def480e233dc1fda58301ae",
+    "hash": "5f7e56198a980477cf01ce67faf9b4a6",
+    "content-hash": "0cdf0bad225b6131650349f9cad9e693",
     "packages": [],
     "packages-dev": [
         {
-            "name": "fabpot/php-cs-fixer",
-            "version": "v1.11.2",
+            "name": "friendsofphp/php-cs-fixer",
+            "version": "v1.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "41f70154642ec0f9ea9ea9c290943f3b5dfa76fc"
+                "reference": "eeb280e909834603ffe03524dbe0066e77c83084"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/41f70154642ec0f9ea9ea9c290943f3b5dfa76fc",
-                "reference": "41f70154642ec0f9ea9ea9c290943f3b5dfa76fc",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/eeb280e909834603ffe03524dbe0066e77c83084",
+                "reference": "eeb280e909834603ffe03524dbe0066e77c83084",
                 "shasum": ""
             },
             "require": {
@@ -60,7 +60,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2016-02-26 07:37:29"
+            "time": "2016-06-07 07:51:27"
         },
         {
             "name": "psr/log",
@@ -154,16 +154,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd"
+                "reference": "64a4d43b045f07055bb197650159769604cb2a92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/6b1175135bc2a74c08a28d89761272de8beed8cd",
-                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd",
+                "url": "https://api.github.com/repos/symfony/console/zipball/64a4d43b045f07055bb197650159769604cb2a92",
+                "reference": "64a4d43b045f07055bb197650159769604cb2a92",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +183,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -210,20 +210,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-16 17:00:50"
+            "time": "2016-06-14 11:18:07"
         },
         {
             "name": "symfony/debug",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "a06d10888a45afd97534506afb058ec38d9ba35b"
+                "reference": "26786e21ee0344f99629215ead5f0d6f18cdc267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/a06d10888a45afd97534506afb058ec38d9ba35b",
-                "reference": "a06d10888a45afd97534506afb058ec38d9ba35b",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/26786e21ee0344f99629215ead5f0d6f18cdc267",
+                "reference": "26786e21ee0344f99629215ead5f0d6f18cdc267",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +240,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -267,20 +267,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-30 10:41:14"
+            "time": "2016-06-06 15:08:54"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "9002dcf018d884d294b1ef20a6f968efc1128f39"
+                "reference": "f5b7563f67779c6d3d5370e23448e707c858df3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9002dcf018d884d294b1ef20a6f968efc1128f39",
-                "reference": "9002dcf018d884d294b1ef20a6f968efc1128f39",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/f5b7563f67779c6d3d5370e23448e707c858df3e",
+                "reference": "f5b7563f67779c6d3d5370e23448e707c858df3e",
                 "shasum": ""
             },
             "require": {
@@ -300,7 +300,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -327,20 +327,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-10 10:34:12"
+            "time": "2016-06-06 11:42:41"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "f82499a459dcade2ea56df94cc58b19c8bde3d20"
+                "reference": "5751e80d6f94b7c018f338a4a7be0b700d6f3058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/f82499a459dcade2ea56df94cc58b19c8bde3d20",
-                "reference": "f82499a459dcade2ea56df94cc58b19c8bde3d20",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/5751e80d6f94b7c018f338a4a7be0b700d6f3058",
+                "reference": "5751e80d6f94b7c018f338a4a7be0b700d6f3058",
                 "shasum": ""
             },
             "require": {
@@ -349,7 +349,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -376,20 +376,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-27 10:24:39"
+            "time": "2016-04-12 18:27:47"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "c54e407b35bc098916704e9fd090da21da4c4f52"
+                "reference": "40d17ed287bf51a2f884c4619ce8ff2a1c5cd219"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/c54e407b35bc098916704e9fd090da21da4c4f52",
-                "reference": "c54e407b35bc098916704e9fd090da21da4c4f52",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/40d17ed287bf51a2f884c4619ce8ff2a1c5cd219",
+                "reference": "40d17ed287bf51a2f884c4619ce8ff2a1c5cd219",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +398,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -425,20 +425,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-10 11:13:05"
+            "time": "2016-05-13 18:06:41"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "1289d16209491b584839022f29257ad859b8532d"
+                "reference": "dff51f72b0706335131b00a7f49606168c582594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
-                "reference": "1289d16209491b584839022f29257ad859b8532d",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/dff51f72b0706335131b00a7f49606168c582594",
+                "reference": "dff51f72b0706335131b00a7f49606168c582594",
                 "shasum": ""
             },
             "require": {
@@ -450,7 +450,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -484,20 +484,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/process",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "e6f1f98bbd355d209a992bfff45e7edfbd4a0776"
+                "reference": "6350e63ed9c232da50e00f00a7e0330f066387a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/e6f1f98bbd355d209a992bfff45e7edfbd4a0776",
-                "reference": "e6f1f98bbd355d209a992bfff45e7edfbd4a0776",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6350e63ed9c232da50e00f00a7e0330f066387a2",
+                "reference": "6350e63ed9c232da50e00f00a7e0330f066387a2",
                 "shasum": ""
             },
             "require": {
@@ -506,7 +506,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -533,20 +533,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-30 10:41:14"
+            "time": "2016-06-06 11:42:41"
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
-                "reference": "6015187088421e9499d8f8316bdb396f8b806c06"
+                "reference": "e7238f98c90b99e9b53f3674a91757228663b04d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/6015187088421e9499d8f8316bdb396f8b806c06",
-                "reference": "6015187088421e9499d8f8316bdb396f8b806c06",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/e7238f98c90b99e9b53f3674a91757228663b04d",
+                "reference": "e7238f98c90b99e9b53f3674a91757228663b04d",
                 "shasum": ""
             },
             "require": {
@@ -555,7 +555,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -582,20 +582,20 @@
             ],
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:55:57"
+            "time": "2016-06-06 11:42:41"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v3.0.4",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "3841ed86527d18ee2c35fe4afb1b2fc60f8fae79"
+                "reference": "436195b421e8c0493ca3e390c1fbecd8ee08c546"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3841ed86527d18ee2c35fe4afb1b2fc60f8fae79",
-                "reference": "3841ed86527d18ee2c35fe4afb1b2fc60f8fae79",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/436195b421e8c0493ca3e390c1fbecd8ee08c546",
+                "reference": "436195b421e8c0493ca3e390c1fbecd8ee08c546",
                 "shasum": ""
             },
             "require": {
@@ -611,7 +611,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -645,7 +645,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-03-10 10:34:12"
+            "time": "2016-05-24 10:06:56"
         }
     ],
     "aliases": [],
