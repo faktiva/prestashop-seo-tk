@@ -2,7 +2,7 @@
 <module>
 	<name>zzseotk</name>
 	<displayName><![CDATA[ZiZuu SEO ToolKit]]></displayName>
-	<version><![CDATA[1.2.2]]></version>
+	<version><![CDATA[1.2.3]]></version>
 	<description><![CDATA[Handles a few SEO related improvements, such as &#039;hreflang&#039;, &#039;canonical&#039; and &#039;noindex&#039;.]]></description>
 	<author><![CDATA[ZiZuu Store]]></author>
 	<tab><![CDATA[seo]]></tab>
