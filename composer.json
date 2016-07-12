@@ -1,29 +1,44 @@
 {
-  "name": "zizuu-store/zzseotk",
-  "description": "Prestashop module \"ZiZuu SEO toolkit\". It handles a few SEO-related improvements, such as \"hreflang\", \"canonical\" and \"noindex\"",
-  "homepage": "https://github.com/ZiZuu-store/zzSEOtk",
-  "license": "CC-BY-NC-SA-4.0",
-  "type": "prestashop-module",
-  "authors": [
-    {
-      "name": "ZiZuu Store",
-      "email": "info@ZiZuu.com"
+    "name": "zizuu-store/zzseotk",
+    "description": "Prestashop module \"ZiZuu SEO toolkit\". It handles a few SEO-related improvements, such as \"hreflang\", \"canonical\" and \"noindex\"",
+    "homepage": "https://github.com/ZiZuu-store/zzSEOtk",
+    "license": "CC-BY-NC-SA-4.0",
+    "type": "prestashop-module",
+    "authors": [
+        {
+            "name": "ZiZuu Store",
+            "email": "info@ZiZuu.com"
+        }
+    ],
+
+    "minimum-stability": "stable",
+    "config": {
+        "github-protocols": ["https"],
+        "archive-format": "zip",
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "5.2"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "1.11",
+        "symfony/var-dumper": "~2.8|~3.0",
+        "symfony/debug": "~2.8|~3.0"
+    },
+    "require": {
+        "php": ">=5.2"
+    },
+    "scripts": {
+        "csfix": [
+            "php-cs-fixer -vvv --dry-run fix ; echo"
+        ],
+        "zip": [
+            "@composer archive -vvv -f zip",
+            "php -r 'rename(array_shift(glob(\"zizuu-store-zzseotk-*.zip\")), \"zzseotk.zip\");'"
+        ]
+    },
+    "archive": {
+        "exclude": [".*", "/composer.*", "/vendor", "*.zip", "*.tar", "*.md", "/*.jpg" ]
     }
-  ],
-  "config": {
-    "preferred-install": "dist"
-  },
-  "require-dev": {
-    "friendsofphp/php-cs-fixer": "^1.11",
-    "symfony/var-dumper": "^3.0",
-    "symfony/debug": "^3.0"
-  },
-  "require": {
-    "php": ">=5.3.2"
-  },
-  "scripts": {
-    "csfix": [
-      "php-cs-fixer -vvv fix"
-    ]
-  }
 }
