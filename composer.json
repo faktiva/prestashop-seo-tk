@@ -31,7 +31,7 @@
     },
     "scripts": {
         "csfix": [
-            "php-cs-fixer -vvv --dry-run fix ; echo"
+            "php-cs-fixer -vvv fix ; echo"
         ],
         "zip": [
             "@composer archive -vvv -f zip",
