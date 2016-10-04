@@ -3,7 +3,7 @@ global_exclude_dirs:
     - upgrade
 
 exclude_patterns:
-    - lib/debug.inc.php
+    - tools/debug.php
 
 rules:
     php.absolute_path_present:
