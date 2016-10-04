@@ -1,18 +1,18 @@
-[PrestaShop module "ZiZuu SEO ToolKit"](https://github.com/ZiZuu-store/zzSEOtk)
+[PrestaShop "SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk)
 ===
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e/mini.png)](https://insight.sensiolabs.com/projects/30806e55-0fe6-4323-ade1-fba266db8b4e)
-[![GitHub issues](https://img.shields.io/github/issues/ZiZuu-store/zzSEOtk.svg?style=plastic)](https://github.com/ZiZuu-store/zzSEOtk/issues)
+[![GitHub issues](https://img.shields.io/github/issues/faktiva/prestashop-seo-tk.svg?style=plastic)](https://github.com/faktiva/prestashop-seo-tk/issues)
 
-[![Packagist](https://img.shields.io/packagist/l/zizuu-store/zzseotk.svg?style=plastic)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![GitHub release](https://img.shields.io/github/release/ZiZuu-store/zzSEOtk.svg?style=plastic&label=latest)](https://github.com/ZiZuu-store/zzSEOtk/releases/latest)
+[![Packagist](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=plastic)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![GitHub release](https://img.shields.io/github/release/faktiva/prestashop-seo-tk.svg?style=plastic&label=latest)](https://github.com/faktiva/prestashop-seo-tk/releases/latest)
 
-[![Packagist](https://img.shields.io/packagist/dt/zizuu-store/zzseotk.svg?style=plastic)](https://packagist.org/packages/zizuu-store/zzseotk)
-[![GitHub stars](https://img.shields.io/github/stars/ZiZuu-store/zzSEOtk.svg?style=social)](https://github.com/ZiZuu-store/zzSEOtk/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ZiZuu-store/zzSEOtk.svg?style=social&label=Forks)](https://github.com/ZiZuu-store/zzSEOtk/network)
+[![Packagist](https://img.shields.io/packagist/dt/faktiva/prestashop-seo-tk.svg?style=plastic)](https://packagist.org/packages/faktiva/prestashop-seo-tk)
+[![GitHub stars](https://img.shields.io/github/stars/faktiva/prestashop-seo-tk.svg?style=social)](https://github.com/faktiva/prestashop-seo-tk/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/faktiva/prestashop-seo-tk.svg?style=social&label=Forks)](https://github.com/faktiva/prestashop-seo-tk/network)
 
-[![Join the chat at https://gitter.im/ZiZuu-store/zzSEOtk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=plastic)](https://gitter.im/ZiZuu-store/zzSEOtk)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/ZiZuu-store/zzSEOtk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module by @ZiZuu_Store: "ZiZuu SEO ToolKit"&url=https://github.com/ZiZuu-store/zzSEOtk)
+[![Join the chat at https://gitter.im/faktiva/prestashop-seo-tk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=plastic)](https://gitter.im/faktiva/prestashop-seo-tk)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module: "PrestaShop SEO ToolKit"&url=https://github.com/faktiva/prestashop-seo-tk)
 
 ___
 
@@ -23,9 +23,9 @@ Handles a few basic SEO related improvements such as:
 
 Being reported to work on **PS >= 1.6.0.9** .. but it should work on PS 1.6.x.x too and *could work* on PS >= 1.5.0.1
 
-For production use the **latest stable [release](https://github.com/ZiZuu-store/zzSEOtk/releases/)**
+For production use the **latest stable [release](https://github.com/faktiva/prestashop-seo-tk/releases/)**
 
-For developing or Pull Request please use only the **[dev](https://github.com/ZiZuu-store/zzSEOtk/tree/dev)** branch
+For developing or Pull Request please use only the **[dev](https://github.com/faktiva/prestashop-seo-tk/tree/dev)** branch
 
 
 ## Canonical URLs
@@ -55,6 +55,6 @@ The phylosophy is "Don't use robots.txt to tell robots to do not index a page, i
 ![Creative Commons BY-NC-SA License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
 
 
-**[ZiZuu SEO ToolKit](https://github.com/ZiZuu-store/zzSEOtk)** by [ZiZuu Store](https://github.com/ZiZuu-store) is licensed under a **Creative Commons [Attribution-NonCommercial-ShareAlike](http://creativecommons.org/licenses/by-nc-sa/4.0/) 4.0 International License**.
+**[PrestaShop SEO ToolKit](https://github.com/faktiva/prestashop-seo-tk)** by [Faktiva](https://github.com/faktiva) is licensed under a **Creative Commons [Attribution-NonCommercial-ShareAlike](http://creativecommons.org/licenses/by-nc-sa/4.0/) 4.0 International License**.
 
-Permissions beyond the scope of this license may be available contacting us at info@ZiZuu.com.
+Permissions beyond the scope of this license may be available contacting us at info@faktiva.com.
