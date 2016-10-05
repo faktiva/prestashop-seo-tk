@@ -1,16 +1,21 @@
 <?php
 
-/**
+/*
+ * This file is part of the "Prestashop SEO ToolKit" module.
+ *
+ * (c) Faktiva (http://faktiva.com)
  *
  * NOTICE OF LICENSE
- * This source file is subject to the License terms Academi cFined in the file LICENSE.md
+ * This source file is subject to the CC-BY-4.0 license that is
+ * available at the URL https://creativecommons.org/licenses/by/4.0/
  *
  * DISCLAIMER
  * This code is provided as is without any warranty.
  * No promise of being safe or secure
  *
- * @author   ZiZuu.com <info@zizuu.com>
- * @link     source available at https://github.com/ZiZuu-store/
+ * @author   AlberT <albert@faktiva.com>
+ * @license  https://creativecommons.org/licenses/by/4.0/  CC-BY-4.0
+ * @source   https://github.com/faktiva/prestashop-seo-tk
  */
 
 // Set true to enable debugging
