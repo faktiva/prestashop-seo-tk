@@ -1,16 +1,21 @@
 <?php
 
-/**
+/*
+ * This file is part of the "Prestashop SEO ToolKit" module.
+ *
+ * (c) Faktiva (http://faktiva.com)
  *
  * NOTICE OF LICENSE
- * This source file is subject to the License terms Academi cFined in the file LICENSE.md
+ * This source file is subject to the CC-BY-4.0 license that is
+ * available at the URL https://creativecommons.org/licenses/by/4.0/
  *
  * DISCLAIMER
  * This code is provided as is without any warranty.
  * No promise of being safe or secure
  *
- * @author   ZiZuu.com <info@zizuu.com>
- * @link     source available at https://github.com/ZiZuu-store/
+ * @author   AlberT <albert@faktiva.com>
+ * @license  https://creativecommons.org/licenses/by/4.0/  CC-BY-4.0
+ * @source   https://github.com/faktiva/prestashop-seo-tk
  */
 
 if (!defined('_PS_VERSION_')) {
@@ -21,7 +26,7 @@ if (version_compare(phpversion(), '5.3.0', '>=')) { // Namespaces support is req
     include_once __DIR__.'/tools/debug.php';
 }
 
-class zzseotk extends Module
+class faktiva_seo_tk extends Module
 {
     private $_controller;
 
@@ -73,20 +78,20 @@ class zzseotk extends Module
 
     public function __construct()
     {
-        $this->name = 'zzseotk';
-        $this->author = 'ZiZuu Store';
+        $this->name = 'faktiva_seo_tk';
+        $this->author = 'Faktiva';
         $this->tab = 'seo';
-        $this->version = '1.3.0';
+        $this->version = '1.4.0';
         $this->need_instance = 0;
         $this->bootstrap = true;
         $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
 
         parent::__construct();
 
-        $this->displayName = $this->l('ZiZuu SEO ToolKit');
+        $this->displayName = $this->l('Faktiva SEO ToolKit');
         $this->description = $this->l('Handles a few SEO related improvements, such as \'hreflang\', \'canonical\' and \'noindex\'.');
 
-        $this->confirmUninstall = $this->l('Are you sure you want to uninstall "ZiZuu SEO ToolKit"?');
+        $this->confirmUninstall = $this->l('Are you sure you want to uninstall "Faktiva SEO ToolKit"?');
     }
 
     public function install()
@@ -97,18 +102,18 @@ class zzseotk extends Module
 
         return parent::install()
             && $this->registerHook('header')
-            && Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', false)
-            && Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', false)
-            && Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', false)
+            && Configuration::updateValue('FKVSEOTK_HREFLANG_ENABLED', false)
+            && Configuration::updateValue('FKVSEOTK_CANONICAL_ENABLED', false)
+            && Configuration::updateValue('FKVSEOTK_NOBOTS_ENABLED', false)
         ;
     }
 
     public function uninstall()
     {
         return parent::uninstall()
-            && Configuration::deleteByName('ZZSEOTK_HREFLANG_ENABLED')
-            && Configuration::deleteByName('ZZSEOTK_CANONICAL_ENABLED')
-            && Configuration::deleteByName('ZZSEOTK_NOBOTS_ENABLED')
+            && Configuration::deleteByName('FKVSEOTK_HREFLANG_ENABLED')
+            && Configuration::deleteByName('FKVSEOTK_CANONICAL_ENABLED')
+            && Configuration::deleteByName('FKVSEOTK_NOBOTS_ENABLED')
         ;
     }
 
@@ -127,16 +132,16 @@ class zzseotk extends Module
             '</div>';
 
         if (Tools::isSubmit('submitOptionsconfiguration')) {
-            if (null!==Tools::getValue('ZZSEOTK_HREFLANG_ENABLED')) {
-                Configuration::updateValue('ZZSEOTK_HREFLANG_ENABLED', (bool)Tools::getValue('ZZSEOTK_HREFLANG_ENABLED'));
+            if (null!==Tools::getValue('FKVSEOTK_HREFLANG_ENABLED')) {
+                Configuration::updateValue('FKVSEOTK_HREFLANG_ENABLED', (bool)Tools::getValue('FKVSEOTK_HREFLANG_ENABLED'));
             }
 
-            if (null!==Tools::getValue('ZZSEOTK_CANONICAL_ENABLED')) {
-                Configuration::updateValue('ZZSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('ZZSEOTK_CANONICAL_ENABLED'));
+            if (null!==Tools::getValue('FKVSEOTK_CANONICAL_ENABLED')) {
+                Configuration::updateValue('FKVSEOTK_CANONICAL_ENABLED', (bool)Tools::getValue('FKVSEOTK_CANONICAL_ENABLED'));
             }
 
-            if (null!==Tools::getValue('ZZSEOTK_NOBOTS_ENABLED')) {
-                Configuration::updateValue('ZZSEOTK_NOBOTS_ENABLED', (bool)Tools::getValue('ZZSEOTK_NOBOTS_ENABLED'));
+            if (null!==Tools::getValue('FKVSEOTK_NOBOTS_ENABLED')) {
+                Configuration::updateValue('FKVSEOTK_NOBOTS_ENABLED', (bool)Tools::getValue('FKVSEOTK_NOBOTS_ENABLED'));
             }
         }
 
@@ -152,7 +157,7 @@ class zzseotk extends Module
                 'title' => $this->l('Internationalization'),
                 'icon' => 'icon-flag',
                 'fields' => array(
-                    'ZZSEOTK_HREFLANG_ENABLED' => array(
+                    'FKVSEOTK_HREFLANG_ENABLED' => array(
                         'title' => $this->l('Enable "hreflang" meta tag'),
                         'hint' => $this->l('Set "hreflang" meta tag into the html head to handle the same content in different languages.'),
                         'validation' => 'isBool',
@@ -168,7 +173,7 @@ class zzseotk extends Module
                 'title' => $this->l('Canonical URL'),
                 'icon' => 'icon-link',
                 'fields' => array(
-                    'ZZSEOTK_CANONICAL_ENABLED' => array(
+                    'FKVSEOTK_CANONICAL_ENABLED' => array(
                         'title' => $this->l('Enable "canonical" meta tag'),
                         'hint' => $this->l('Set "canonical"meta tag into the html head to avoid content duplication issues in SEO.'),
                         'validation' => 'isBool',
@@ -184,7 +189,7 @@ class zzseotk extends Module
                 'title' => $this->l('"nobots"'),
                 'icon' => 'icon-sitemap',
                 'fields' => array(
-                    'ZZSEOTK_NOBOTS_ENABLED' => array(
+                    'FKVSEOTK_NOBOTS_ENABLED' => array(
                         'title' => $this->l('Enable "noindex" meta tag'),
                         'hint' => $this->l('Set "noindex" meta tag into the html head to avoid search engine indicization of "private" pages. Public pages are not affected of course.'),
                         'validation' => 'isBool',
@@ -230,7 +235,7 @@ class zzseotk extends Module
 
     private function _handleNobots()
     {
-        if (Configuration::get('ZZSEOTK_NOBOTS_ENABLED')) {
+        if (Configuration::get('FKVSEOTK_NOBOTS_ENABLED')) {
             if (in_array($this->_controller, $this->_nobots_controllers)
                 || Tools::getValue('selected_filters')
             ) {
@@ -245,7 +250,7 @@ class zzseotk extends Module
 
     private function _displayHreflang()
     {
-        if (!Configuration::get('ZZSEOTK_HREFLANG_ENABLED')) {
+        if (!Configuration::get('FKVSEOTK_HREFLANG_ENABLED')) {
             return;
         }
 
@@ -258,7 +263,7 @@ class zzseotk extends Module
             $requested_URL = $proto . $domain . $_SERVER['REQUEST_URI'];
         }
 
-        if (Configuration::get('ZZSEOTK_CANONICAL_ENABLED') && !$this->_isCanonicalRequest($requested_URL)) {
+        if (Configuration::get('FKVSEOTK_CANONICAL_ENABLED') && !$this->_isCanonicalRequest($requested_URL)) {
             return; // skip if actual page is not the canonical page
         }
 
@@ -286,7 +291,7 @@ class zzseotk extends Module
 
     private function _displayCanonical()
     {
-        if (!Configuration::get('ZZSEOTK_CANONICAL_ENABLED')) {
+        if (!Configuration::get('FKVSEOTK_CANONICAL_ENABLED')) {
             return;
         }
 
