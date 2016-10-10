@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-	<name>faktiva-seo-tk</name>
+	<name>faktiva_seo_tk</name>
 	<displayName><![CDATA[Faktiva SEO ToolKit]]></displayName>
 	<version><![CDATA[1.4.0]]></version>
 	<description><![CDATA[Handles a few SEO related improvements, such as &#039;hreflang&#039;, &#039;canonical&#039; and &#039;noindex&#039;.]]></description>
