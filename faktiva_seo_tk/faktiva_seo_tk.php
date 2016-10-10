@@ -6,15 +6,15 @@
  * (c) Faktiva (http://faktiva.com)
  *
  * NOTICE OF LICENSE
- * This source file is subject to the CC-BY-4.0 license that is
- * available at the URL https://creativecommons.org/licenses/by/4.0/
+ * This source file is subject to the CC BY-SA 4.0 license that is
+ * available at the URL https://creativecommons.org/licenses/by-sa/4.0/
  *
  * DISCLAIMER
  * This code is provided as is without any warranty.
  * No promise of being safe or secure
  *
  * @author   AlberT <albert@faktiva.com>
- * @license  https://creativecommons.org/licenses/by/4.0/  CC-BY-4.0
+ * @license  https://creativecommons.org/licenses/by-sa/4.0/  CC-BY-SA-4.0
  * @source   https://github.com/faktiva/prestashop-seo-tk
  */
 
@@ -81,7 +81,7 @@ class faktiva_seo_tk extends Module
         $this->name = 'faktiva_seo_tk';
         $this->author = 'Faktiva';
         $this->tab = 'seo';
-        $this->version = '1.4.0';
+        $this->version = '1.4.1';
         $this->need_instance = 0;
         $this->bootstrap = true;
         $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
