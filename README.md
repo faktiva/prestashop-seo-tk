@@ -1,18 +1,15 @@
-[PrestaShop "SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk)
+[PrestaShop "SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk) <br /> [![SensioLabs Insight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/mini.png?style=flat)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee) [![License](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=flat)](https://creativecommons.org/licenses/by-sa/4.0/)
 ===
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/mini.png)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee)
-[![GitHub issues](https://img.shields.io/github/issues/faktiva/prestashop-seo-tk.svg?style=plastic)](https://github.com/faktiva/prestashop-seo-tk/issues)
+[![GitHub release](https://img.shields.io/github/release/faktiva/prestashop-seo-tk.svg?style=flat&label=latest)](https://github.com/faktiva/prestashop-seo-tk/releases/latest)
+[![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/faktiva/prestashop-seo-tk.svg)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/faktiva/prestashop-seo-tk.svg)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Average time to resolve an issue")
+[![composer.lock](https://poser.pugx.org/faktiva/prestashop-seo-tk/composerlock)](https://packagist.org/packages/faktiva/prestashop-seo-tk)
+[![Dependencies Status](https://img.shields.io/librariesio/github/faktiva/prestashop-seo-tk.svg?maxAge=3600)](https://libraries.io/github/faktiva/prestashop-seo-tk)
 
-[![Packagist](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=plastic)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![GitHub release](https://img.shields.io/github/release/faktiva/prestashop-seo-tk.svg?style=plastic&label=latest)](https://github.com/faktiva/prestashop-seo-tk/releases/latest)
-
-[![Packagist](https://img.shields.io/packagist/dt/faktiva/prestashop-seo-tk.svg?style=plastic)](https://packagist.org/packages/faktiva/prestashop-seo-tk)
-[![GitHub stars](https://img.shields.io/github/stars/faktiva/prestashop-seo-tk.svg?style=social)](https://github.com/faktiva/prestashop-seo-tk/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/faktiva/prestashop-seo-tk.svg?style=social&label=Forks)](https://github.com/faktiva/prestashop-seo-tk/network)
-
-[![Join the chat at https://gitter.im/faktiva/prestashop-seo-tk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=plastic)](https://gitter.im/faktiva/prestashop-seo-tk)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module: "PrestaShop SEO ToolKit"&url=https://github.com/faktiva/prestashop-seo-tk)
+[![Join the chat at https://gitter.im/faktiva/prestashop-seo-tk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=flat)](https://gitter.im/faktiva/prestashop-seo-tk)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module: "PrestaShop SEO ToolKit". #faktiva&url=https://github.com/faktiva/prestashop-seo-tk)
 
 ___
 
