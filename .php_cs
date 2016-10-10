@@ -31,7 +31,7 @@ return Symfony\CS\Config\Config::create()
     ))
     ->finder(
         Symfony\CS\Finder\DefaultFinder::create()
-            ->in(__DIR__)
+            ->in(__DIR__.'/faktiva_seo_tk')
     )
 ;
 
