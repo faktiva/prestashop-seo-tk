@@ -81,7 +81,7 @@ class faktiva_seo_tk extends Module
         $this->name = 'faktiva_seo_tk';
         $this->author = 'Faktiva';
         $this->tab = 'seo';
-        $this->version = '1.4.0';
+        $this->version = '1.4.1';
         $this->need_instance = 0;
         $this->bootstrap = true;
         $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
