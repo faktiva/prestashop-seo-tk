@@ -52,9 +52,9 @@ The phylosophy is "Don't use robots.txt to tell robots to do not index a page, i
 
 # License
 
-![Creative Commons BY-NC-SA License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+![Creative Commons BY-NC-SA License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
 
 
-**[PrestaShop SEO ToolKit](https://github.com/faktiva/prestashop-seo-tk)** by [Faktiva](https://github.com/faktiva) is licensed under a **Creative Commons [Attribution-NonCommercial-ShareAlike](http://creativecommons.org/licenses/by-nc-sa/4.0/) 4.0 International License**.
+**[PrestaShop SEO ToolKit](https://github.com/faktiva/prestashop-seo-tk)** by [Faktiva](https://github.com/faktiva) is licensed under a **Creative Commons [Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/4.0/) 4.0 International License**.
 
 Permissions beyond the scope of this license may be available contacting us at info@faktiva.com.

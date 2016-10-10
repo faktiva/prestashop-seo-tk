@@ -2,7 +2,7 @@
     "name": "faktiva/prestashop-seo-tk",
     "description": "\"PrestaShop SEO toolkit\" module. It handles a few SEO-related improvements, such as \"hreflang\", \"canonical\" and \"noindex\"",
     "homepage": "https://github.com/faktiva/prestashop-seo-tk",
-    "license": "CC-BY-NC-SA-4.0",
+    "license": "CC-BY-SA-4.0",
     "type": "prestashop-module",
     "authors": [
         {
