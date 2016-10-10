@@ -1,7 +1,7 @@
 [PrestaShop "SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk)
 ===
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/big.png)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/mini.png)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee)
 [![GitHub issues](https://img.shields.io/github/issues/faktiva/prestashop-seo-tk.svg?style=plastic)](https://github.com/faktiva/prestashop-seo-tk/issues)
 
 [![Packagist](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=plastic)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
