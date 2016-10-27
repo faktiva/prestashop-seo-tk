@@ -20,12 +20,12 @@ Handles a few basic SEO related improvements such as:
 * "canonical"
 * "noindex"
 
-Being reported to work on **PS >= 1.6.0.9** .. but it should work on PS 1.6.x.x too and *could work* on PS >= 1.5.0.1
-
-For production use the **latest stable [release](https://github.com/faktiva/prestashop-seo-tk/releases/)**
-
-For developing or Pull Request please use only the **[dev](https://github.com/faktiva/prestashop-seo-tk/tree/dev)** branch
-
+>
+>    For production use the **latest stable [release](https://github.com/faktiva/prestashop-seo-tk/releases/latest)**
+>
+>    It has been reported to work on **PS >= 1.6.0.9** but it should work on PS 1.6.x.x too and *could work* on PS >= 1.5.0.1 too.
+>    **If you succesfully use this module on some older version please report**
+>
 
 ## Canonical URLs
 
