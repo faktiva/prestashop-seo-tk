@@ -1,17 +1,19 @@
-[PrestaShop "SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk) <br /> [![SensioLabs Insight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/mini.png?style=flat)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee) [![License](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=flat)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/small.png)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee)
+[PrestaShop module "Faktiva SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk)
 ===
 
 [![GitHub release](https://img.shields.io/github/release/faktiva/prestashop-seo-tk.svg?style=flat&label=latest)](https://github.com/faktiva/prestashop-seo-tk/releases/latest)
-[![Project Status](http://opensource.box.com/badges/active.svg)](http://opensource.box.com/badges)
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/faktiva/prestashop-seo-tk.svg)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Percentage of issues still open")
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/faktiva/prestashop-seo-tk.svg)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Average time to resolve an issue")
-[![composer.lock](https://poser.pugx.org/faktiva/prestashop-seo-tk/composerlock)](https://packagist.org/packages/faktiva/prestashop-seo-tk)
-[![Dependencies Status](https://img.shields.io/librariesio/github/faktiva/prestashop-seo-tk.svg?maxAge=3600)](https://libraries.io/github/faktiva/prestashop-seo-tk)
+[![Project Status](http://opensource.box.com/badges/active.svg?style=flat)](http://opensource.box.com/badges)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/faktiva/prestashop-seo-tk.svg?style=flat)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/faktiva/prestashop-seo-tk.svg?style=flat)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Average time to resolve an issue")
+[![composer.lock](https://poser.pugx.org/faktiva/prestashop-seo-tk/composerlock?style=flat)](https://packagist.org/packages/faktiva/prestashop-seo-tk)
+[![Dependencies Status](https://img.shields.io/librariesio/github/faktiva/prestashop-seo-tk.svg?maxAge=3600&style=flat)](https://libraries.io/github/faktiva/prestashop-seo-tk)
+[![License](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=flat)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 [![Join the chat at https://gitter.im/faktiva/prestashop-seo-tk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=flat)](https://gitter.im/faktiva/prestashop-seo-tk)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module: "PrestaShop SEO ToolKit". #faktiva&url=https://github.com/faktiva/prestashop-seo-tk)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module "#Faktiva SEO ToolKit"&url=https://github.com/faktiva/prestashop-clean-urls)
 
-___
+____
 
 Handles a few basic SEO related improvements such as:
 * "hreflang"
