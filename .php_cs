@@ -30,7 +30,7 @@ return Symfony\CS\Config\Config::create()
         'pre_increment',
     ))
     ->finder(
-        Symfony\CS\Finder\DefaultFinder::create()
+        Symfony\CS\Finder::create()
             ->in(__DIR__.'/faktiva_seo_tk')
     )
 ;
