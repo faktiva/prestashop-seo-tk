@@ -14,7 +14,11 @@
     ],
     "support": {
         "issues": "https://github.com/faktiva/prestashop-seo-tk/issues",
-        "source": "https://github.com/faktiva/prestashop-seo-tk/releases/latest"
+        "source": "https://github.com/faktiva/prestashop-clean-urls/releases/latest",
+        "email": "support@faktiva.com"
+    },
+    "replace": {
+        "zizuu-store/zzseotk": "*"
     },
 
     "minimum-stability": "stable",
@@ -28,9 +32,6 @@
             "php": "5.3.9"
         }
     },
-    "replace": {
-        "zizuu-store/zzseotk": "*"
-    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.12",
         "sensiolabs/security-checker": "^4.0",
@@ -38,7 +39,7 @@
         "symfony/debug": "^2.0 || ^3.0"
     },
     "require": {
-        "php": ">=5.2"
+        "php": ">=5.3.9"
     },
     "scripts": {
         "chk-cs": [
