@@ -45,15 +45,7 @@ Insert the `<meta rel="hreflang">` html tag, a default lang is handled too.
 ## NoIndex
 
 Automatically assure a `<meta robots="noindex">` tag is added to every PS controller that should not been indexed by search engines.
-This allows for big "robots.txt" cleanup .. and a better SEO 
+This allows for big "robots.txt" cleanup .. and a better SEO
 
 The phylosophy is "Don't use robots.txt to tell robots to do not index a page, it should be used to block them .. it's different"
 
-# License
-
-![Creative Commons BY-NC-SA License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
-
-
-**[PrestaShop SEO ToolKit](https://github.com/faktiva/prestashop-seo-tk)** by [Faktiva](https://github.com/faktiva) is licensed under a **Creative Commons [Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/4.0/) 4.0 International License**.
-
-Permissions beyond the scope of this license may be available contacting us at info@faktiva.com.
