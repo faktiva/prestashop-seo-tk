@@ -8,7 +8,7 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/faktiva/prestashop-seo-tk.svg?style=flat)](http://isitmaintained.com/project/faktiva/prestashop-seo-tk "Average time to resolve an issue")
 [![composer.lock](https://poser.pugx.org/faktiva/prestashop-seo-tk/composerlock?style=flat)](https://packagist.org/packages/faktiva/prestashop-seo-tk)
 [![Dependencies Status](https://img.shields.io/librariesio/github/faktiva/prestashop-seo-tk.svg?maxAge=3600&style=flat)](https://libraries.io/github/faktiva/prestashop-seo-tk)
-[![License](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=flat)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![License](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=flat)](https://tldrlegal.com/license/mit-license)
 
 [![Join the chat at https://gitter.im/faktiva/prestashop-seo-tk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=flat)](https://gitter.im/faktiva/prestashop-seo-tk)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic @PrestaShop module "%23Faktiva SEO ToolKit"&url=https://github.com/faktiva/prestashop-clean-urls)
