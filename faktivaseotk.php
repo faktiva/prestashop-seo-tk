@@ -78,7 +78,7 @@ class FaktivaSeoTk extends Module
 
     public function __construct()
     {
-        $this->name = 'faktiva_seo_tk';
+        $this->name = 'faktivaseotk';
         $this->author = 'Faktiva';
         $this->tab = 'seo';
         $this->version = '1.4.2';
