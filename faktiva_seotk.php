@@ -23,10 +23,10 @@ if (!defined('_PS_VERSION_')) {
 }
 
 if (version_compare(phpversion(), '5.3.0', '>=')) { // Namespaces support is required
-    include_once __DIR__.'/tools/debug.php';
+    include_once __DIR__ . '/tools/debug.php';
 }
 
-class faktiva_seo_tk extends Module
+class Faktiva_Seotk extends Module
 {
     private $_controller;
 
@@ -78,7 +78,7 @@ class faktiva_seo_tk extends Module
 
     public function __construct()
     {
-        $this->name = 'faktiva_seo_tk';
+        $this->name = 'faktiva_seotk';
         $this->author = 'Faktiva';
         $this->tab = 'seo';
         $this->version = '1.4.2';
