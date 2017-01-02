@@ -23,7 +23,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 if (version_compare(phpversion(), '5.3.0', '>=')) { // Namespaces support is required
-    include_once __DIR__.'/tools/debug.php';
+    include_once __DIR__ . '/tools/debug.php';
 }
 
 class faktiva_seo_tk extends Module
