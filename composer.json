@@ -43,7 +43,7 @@
         "composer/installers": "^1.2"
     },
     "extra": {
-        "installer-name": "faktivaseotk"
+        "installer-name": "faktiva_seotk"
     },
     "scripts": {
         "chk-cs": [

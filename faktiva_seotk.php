@@ -26,7 +26,7 @@ if (version_compare(phpversion(), '5.3.0', '>=')) { // Namespaces support is req
     include_once __DIR__ . '/tools/debug.php';
 }
 
-class FaktivaSeoTk extends Module
+class Faktiva_Seotk extends Module
 {
     private $_controller;
 
@@ -78,7 +78,7 @@ class FaktivaSeoTk extends Module
 
     public function __construct()
     {
-        $this->name = 'faktivaseotk';
+        $this->name = 'faktiva_seotk';
         $this->author = 'Faktiva';
         $this->tab = 'seo';
         $this->version = '1.4.2';
