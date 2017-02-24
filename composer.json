@@ -47,20 +47,20 @@
     },
     "scripts": {
         "chk-cs": [
-            "php bin/php-cs-fixer -vvv fix --dry-run"
+            "php-cs-fixer -vvv fix --dry-run"
         ],
         "chk-sec": [
-            "php bin/security-checker -vv security:check"
+            "security-checker -vv security:check"
         ],
         "check": [
             "@chk-cs",
             "@chk-sec"
         ],
         "fix-cs": [
-            "php bin/php-cs-fixer -vvv fix"
+            "php-cs-fixer -vvv fix"
         ],
         "zip": [
-            "git archive -o faktiva_seo_tk.zip --prefix=faktiva_seo_tk/ "
+            "git archive -o faktiva_seo_tk.zip --prefix=faktiva_seotk/ "
         ]
     }
 }
