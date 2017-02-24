@@ -3,34 +3,53 @@
 /*
  * This file is part of the "Prestashop SEO ToolKit" module.
  *
- * (c) Faktiva (http://faktiva.com)
- *
- * NOTICE OF LICENSE
- * This source file is subject to the CC BY-SA 4.0 license that is
- * available at the URL https://creativecommons.org/licenses/by-sa/4.0/
- *
- * DISCLAIMER
- * This code is provided as is without any warranty.
- * No promise of being safe or secure
- *
- * @author   AlberT <albert@faktiva.com>
- * @license  https://creativecommons.org/licenses/by-sa/4.0/  CC-BY-SA-4.0
+ * @author   Emiliano 'AlberT' Gabrielli <albert@faktiva.com>
  * @source   https://github.com/faktiva/prestashop-seo-tk
+ * @license  MIT
+ *
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015-2017 Emiliano Gabrielli
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 
 if (!defined('_PS_VERSION_')) {
     return;
 }
 
-if (version_compare(phpversion(), '5.3.0', '>=')) { // Namespaces support is required
+if (version_compare(PHP_VERSION, '5.3.0', '>=')) { // Namespaces support is required
     include_once __DIR__ . '/tools/debug.php';
 }
 
+/**
+ * Class Faktiva_Seotk
+ */
 class Faktiva_Seotk extends Module
 {
     private $_controller;
 
-    private $_paginating_controllers = array(
+    /**
+     * @var string[]
+     */
+    private static $_paginating_controllers = array(
         'best-sales',
         'category',
         'manufacturer',
@@ -42,7 +61,10 @@ class Faktiva_Seotk extends Module
         'supplier-list',
     );
 
-    private $_nobots_controllers = array(
+    /**
+     * @var string[]
+     */
+    private static $_nobots_controllers = array(
         '404',
         'address',
         'addresses',
@@ -76,6 +98,9 @@ class Faktiva_Seotk extends Module
         'statistics',
     );
 
+    /**
+     * Faktiva_Seotk constructor.
+     */
     public function __construct()
     {
         $this->name = 'faktiva_seotk';
@@ -94,6 +119,9 @@ class Faktiva_Seotk extends Module
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall "Faktiva SEO ToolKit"?');
     }
 
+    /**
+     * @return bool
+     */
     public function install()
     {
         if (Shop::isFeatureActive()) {
@@ -108,6 +136,9 @@ class Faktiva_Seotk extends Module
         ;
     }
 
+    /**
+     * @return bool
+     */
     public function uninstall()
     {
         return parent::uninstall()
@@ -117,13 +148,22 @@ class Faktiva_Seotk extends Module
         ;
     }
 
-    //FIXME
+    /**
+     * @param $template
+     * @param null $cache_id
+     * @param null $compile_id
+     *
+     * FIXME
+     */
     public function _clearCache($template, $cache_id = null, $compile_id = null)
     {
         parent::_clearCache('meta-hreflang.tpl', $this->getCacheId($cache_id));
         parent::_clearCache('meta-canonical.tpl', $this->getCacheId($cache_id));
     }
 
+    /**
+     * @return string
+     */
     public function getContent()
     {
         $_html = '<div id="'.$this->name.'_config_intro" class="alert alert-info">'.
@@ -150,6 +190,9 @@ class Faktiva_Seotk extends Module
         return $_html;
     }
 
+    /**
+     * @return mixed
+     */
     public function renderForm()
     {
         $this->fields_option = array(
@@ -213,6 +256,9 @@ class Faktiva_Seotk extends Module
         return $helper->generateOptions($this->fields_option);
     }
 
+    /**
+     * @return string
+     */
     public function hookHeader()
     {
         $this->_controller = Dispatcher::getInstance()->getController();
@@ -222,7 +268,7 @@ class Faktiva_Seotk extends Module
 
         if ($this->_handleNobots()) {
             // no need to add anything else as robots should ignore this page
-            return;
+            return '';
         }
 
         $out = "\n"
@@ -233,10 +279,13 @@ class Faktiva_Seotk extends Module
         return $out;
     }
 
+    /**
+     * @return bool
+     */
     private function _handleNobots()
     {
         if (Configuration::get('FKVSEOTK_NOBOTS_ENABLED')) {
-            if (in_array($this->_controller, $this->_nobots_controllers)
+            if (in_array($this->_controller, self::$_nobots_controllers, true)
                 || Tools::getValue('selected_filters')
             ) {
                 $this->context->smarty->assign('nobots', true);
@@ -248,10 +297,13 @@ class Faktiva_Seotk extends Module
         return false;
     }
 
+    /**
+     * @return string
+     */
     private function _displayHreflang()
     {
         if (!Configuration::get('FKVSEOTK_HREFLANG_ENABLED')) {
-            return;
+            return '';
         }
 
         $shop = $this->context->shop;
@@ -264,7 +316,7 @@ class Faktiva_Seotk extends Module
         }
 
         if (Configuration::get('FKVSEOTK_CANONICAL_ENABLED') && !$this->_isCanonicalRequest($requested_URL)) {
-            return; // skip if actual page is not the canonical page
+            return ''; // skip if actual page is not the canonical page
         }
 
         foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
@@ -289,10 +341,13 @@ class Faktiva_Seotk extends Module
         return $this->display(__FILE__, 'meta-hreflang.tpl');
     }
 
+    /**
+     * @return string
+     */
     private function _displayCanonical()
     {
         if (!Configuration::get('FKVSEOTK_CANONICAL_ENABLED')) {
-            return;
+            return '';
         }
 
         $canonical = $this->_getCanonical();
@@ -306,7 +361,14 @@ class Faktiva_Seotk extends Module
         return $this->display(__FILE__, 'meta-canonical.tpl', $this->getCacheId($canonical));
     }
 
-    private function _getCanonicalByLink(&$params, $id_lang = null, $id_shop = null)
+    /**
+     * @param array $params
+     * @param null $id_lang
+     * @param null $id_shop
+     *
+     * @return string
+     */
+    private function _getCanonicalByLink(array &$params, $id_lang = null, $id_shop = null)
     {
         $link = $this->context->link;
         $controller = $this->_controller;
@@ -315,7 +377,7 @@ class Faktiva_Seotk extends Module
         $getLinkFunc = 'get'.ucfirst($controller).'Link';
 
         if (!$link || !$controller) {
-            return;
+            return '';
         }
 
         switch ($controller.$module) {
@@ -377,19 +439,26 @@ class Faktiva_Seotk extends Module
         return $canonical;
     }
 
+    /**
+     * @param int|null $id_lang
+     * @param int|null $id_shop
+     * @param bool $add_qs
+     *
+     * @return mixed
+     */
     private function _getCanonical($id_lang = null, $id_shop = null, $add_qs = true)
     {
         $controller = $this->_controller;
         $params = array();
 
         $canonical = $this->_getCanonicalByLink($params, $id_lang, $id_shop);
-        if ('index' == $controller && '/' == strtok($_SERVER['REQUEST_URI'], '?')) {
+        if ('index' === $controller && '/' === strtok($_SERVER['REQUEST_URI'], '?')) {
             $canonical = rtrim($canonical, '/');
         }
 
         // retain pagination for controllers supporting it, remove p=1
         if (($p = Tools::getValue('p')) && $p > 1
-            && (in_array($controller, $this->_paginating_controllers) || Tools::getValue('module'))
+            && (in_array($controller, self::$_paginating_controllers, true) || Tools::getValue('module'))
         ) {
             $params['p'] = $p;
         }
@@ -397,7 +466,7 @@ class Faktiva_Seotk extends Module
         // remove "dirty" QS
         $canonical = strtok($canonical, '?');
         // add "canonical" QS if enabled
-        if ($add_qs && count($params) > 0) {
+        if ($add_qs && !empty($params)) {
             $canonical .= '?'.http_build_query($params, '', '&');
         }
 
@@ -407,15 +476,20 @@ class Faktiva_Seotk extends Module
         return preg_replace('/^https?/i', $protocol, $canonical);
     }
 
+    /**
+     * @param string $url
+     *
+     * @return bool
+     */
     private function _isCanonicalRequest($url)
     {
         $canonical = $this->_getCanonical(null, null, false /* $has_qs */);
         $request = strtok($url, '?');
-        if ('index' == $this->_controller) {
+        if ('index' === $this->_controller) {
             $request = rtrim($request, '/');
             $canonical = rtrim($canonical, '/');
         }
 
-        return ($request == $canonical);
+        return ($request === $canonical);
     }
 }
