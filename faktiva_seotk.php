@@ -106,7 +106,7 @@ class Faktiva_Seotk extends Module
         $this->name = 'faktiva_seotk';
         $this->author = 'Faktiva';
         $this->tab = 'seo';
-        $this->version = '1.4.2';
+        $this->version = '1.4.3';
         $this->need_instance = 0;
         $this->bootstrap = true;
         $this->ps_versions_compliancy = array('min' => '1.5.0.1', 'max' => _PS_VERSION_);
