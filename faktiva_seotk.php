@@ -318,18 +318,15 @@ class Faktiva_Seotk extends Module
         if (Configuration::get('FKVSEOTK_CANONICAL_ENABLED') && !$this->_isCanonicalRequest($requested_URL)) {
             return ''; // skip if actual page is not the canonical page
         }
-
-        foreach (Shop::getShops(true /* $active */, null /* $id_shop_group */, true /* $get_as_list_id */) as $shop_id) {
-            foreach (Language::getLanguages(true /* $active */, $shop_id) as $language) {
-                $url = $this->_getCanonical($language['id_lang'], $shop_id, true /* $has_qs */);
-                $shops_data[$shop_id][] = array(
-                    'url' => $url,
-                    'language' => array(
-                        'id' => $language['id_lang'],
-                        'code' => $language['language_code'],
-                    ),
-                );
-            }
+        foreach (Language::getLanguages(true /* $active */, $shop->id) as $language) {
+            $url = $this->_getCanonical($language['id_lang'], $shop->id, true /* $has_qs */);
+            $shops_data[$shop->id][] = array(
+                'url' => $url,
+                'language' => array(
+                    'id' => $language['id_lang'],
+                    'code' => $language['language_code'],
+                ),
+            );
         }
 
         $this->context->smarty->assign(array(
