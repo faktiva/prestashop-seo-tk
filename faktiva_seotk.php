@@ -88,6 +88,7 @@ class Faktiva_Seotk extends Module
         'order-follow',
         'order-return',
         'order-confirmation',
+        'pagenotfound',
         'pagination',
         'password',
         'pdf-invoice',
