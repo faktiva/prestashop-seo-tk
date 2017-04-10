@@ -15,6 +15,3 @@ rules:
         threshold: 5
     php.psr1:
         enabled: false
-    php.unreachable_code:
-        # Disabled until Sensio BUG fixed
-        enabled: false
