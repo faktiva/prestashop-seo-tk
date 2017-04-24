@@ -10,6 +10,7 @@
 [![Dependencies Status](https://img.shields.io/librariesio/github/faktiva/prestashop-seo-tk.svg?maxAge=3600&style=flat)](https://libraries.io/github/faktiva/prestashop-seo-tk)
 [![License](https://img.shields.io/packagist/l/faktiva/prestashop-seo-tk.svg?style=flat)](https://tldrlegal.com/license/mit-license)
 
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=YF3R37RLY85CU&lc=IT&item_name=faktiva&item_number=GitHub%2dprestashop%2dseo%2dtk&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
 [![Join the chat at https://gitter.im/faktiva/prestashop-seo-tk](https://img.shields.io/badge/Gitter-CHAT%20NOW-brightgreen.svg?style=flat)](https://gitter.im/faktiva/prestashop-seo-tk)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/faktiva/prestashop-seo-tk.svg?style=social)](https://twitter.com/intent/tweet?text=Fantastic+@PrestaShop+module+"%23Faktiva+SEO+ToolKit"&url=https://github.com/faktiva/prestashop-clean-urls)
 
