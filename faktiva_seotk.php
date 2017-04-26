@@ -327,7 +327,7 @@ class Faktiva_Seotk extends Module
                     'url' => $url,
                     'language' => array(
                         'id' => $language['id_lang'],
-                        'code' => $language['language_code'],
+                        'code' => $language['iso_code'],
                     ),
                 );
             }
