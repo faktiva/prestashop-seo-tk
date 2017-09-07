@@ -288,6 +288,8 @@ class Faktiva_Seotk extends Module
         if (Configuration::get('FKVSEOTK_NOBOTS_ENABLED')) {
             if (in_array($this->_controller, self::$_nobots_controllers, true)
                 || Tools::getValue('selected_filters')
+                || Tools::getValue('orderby')
+                || Tools::getValue('orderway')
             ) {
                 $this->context->smarty->assign('nobots', true);
 
