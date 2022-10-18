@@ -1,4 +1,3 @@
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee/small.png)](https://insight.sensiolabs.com/projects/d830cdd5-11a2-4ceb-8e07-96ce099305ee)
 [PrestaShop module "Faktiva SEO ToolKit"](https://github.com/faktiva/prestashop-seo-tk)
 ===
 
@@ -15,6 +14,11 @@
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=YF3R37RLY85CU&lc=IT&item_name=faktiva&item_number=GitHub%2dprestashop%2dseo%2dtk&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
 
 ____
+
+
+> **Warning**: This SW is unmaintained
+
+
 
 Handles a few basic SEO related improvements such as:
 * "hreflang"
